@@ -1,0 +1,22 @@
+<h1>
+    {{data.title}}
+  </h1>
+  <mat-divider></mat-divider>
+  <mat-nav-list >
+    <a mat-list-item 
+      *ngFor="let item of data.listData"
+      [mat-dialog-close]="item.listItem"> 
+      <mat-icon>
+        {{item.icon}}
+      </mat-icon>
+    {{ item.name }} 
+    </a>
+  </mat-nav-list>
+  <div class="action-button">
+    <button mat-flat-button class="cancel-button" [mat-dialog-close]="true">
+      Cancel
+    </button>
+  
+  </div>
+  
+  

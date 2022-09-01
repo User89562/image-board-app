@@ -1,0 +1,48 @@
+@use "@angular/material" as mat;
+
+//$font-family: 'Kalam',
+$main-typography: mat.define-typography-config(
+    $font-family: 'Roboto',
+);
+
+@include mat.core($main-typography);
+
+// Define a light theme
+$light-primary: mat.define-palette(mat.$blue-palette, 900);
+$light-accent: mat.define-palette(mat.$pink-palette);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $light-primary,
+      accent: $light-accent,
+    ),
+  )
+);
+
+// Define a dark theme
+$dark-primary: mat.define-palette(mat.$indigo-palette, A100);
+$dark-accent: mat.define-palette(mat.$blue-gray-palette);
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+    ),
+  )
+);
+
+@include mat.all-component-themes($dark-theme);
+
+// Apply the dark theme only when the `.my-dark-theme` CSS class is applied
+// to an ancestor element of the components (such as `body`).
+/* example: in index.html add "my-dark-theme" to the class
+        <body class="my-dark-theme mat-typography" >
+            <app-root>
+                
+            </app-root>
+        </body>
+*/
+.my-light-theme {
+  @include mat.all-component-colors($light-theme);
+}

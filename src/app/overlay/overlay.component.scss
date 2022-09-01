@@ -1,0 +1,36 @@
+@import "/src/app/utilities/variables";
+
+.message-box {
+    height: auto;
+    width: 30vw;
+    background-color: #616161;
+    color: whitesmoke;
+}
+
+.mat-card-content {
+    margin-top: 10px;
+}
+
+.item-status {
+    margin-left: 5px;
+    margin-top: -10px;
+}
+
+.item-key {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.error-color {
+    color: $error-color;
+}
+
+.error-message {
+    text-align: center;
+}
+
+.card-divider {
+    position: unset !important;
+}
+

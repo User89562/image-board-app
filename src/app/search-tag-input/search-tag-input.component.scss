@@ -1,0 +1,35 @@
+@import "src/app/utilities/_variables";
+
+.tag-form-field{
+    width: 100%;
+}
+
+
+
+
+//Tag colors
+.tag-namespace-series {
+    background-color: rgb(170, 0, 170);
+}
+.tag-namespace-system {
+    background-color: rgb(153, 101, 21);
+}
+.tag-namespace-meta {
+    background-color: rgb(0, 0, 0);
+}
+.tag-namespace-creator {
+    background-color: rgb(170, 0, 0);
+}
+.tag-namespace-studio {
+    background-color: rgb(128, 0, 0);
+}
+.tag-namespace-character {
+    background-color: rgb(0, 170, 0);
+}
+.tag-namespace-person {
+    background-color: rgb(0, 128, 0);
+}
+
+.tag-namespace-default {
+    background-color: rgb(0, 111, 250);
+}

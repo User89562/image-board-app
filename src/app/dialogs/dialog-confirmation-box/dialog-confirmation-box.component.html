@@ -1,0 +1,15 @@
+<h1 mat-dialog-title class="title">{{data.title}}</h1>
+<mat-divider *ngIf="data.messageArray.length > 0"></mat-divider>
+<div mat-dialog-content *ngIf="data.messageArray.length > 0" class="dialog-content">
+  <div>
+    <mat-list *ngFor="let m of data.messageArray">
+      <mat-list-item> {{m}}</mat-list-item>
+    </mat-list>
+  </div>
+</div>
+<div mat-dialog-actions class="dialog-action">  
+  <button mat-raised-button class="cancel-button" (click)="onClick()">Cancel</button>
+  <button mat-raised-button class="yes-button" [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+  
+ 
+</div>

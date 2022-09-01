@@ -1,0 +1,38 @@
+@import "src/app/utilities/_variables";
+
+.mat-dialog-container {
+    width: fit-content;
+  }
+  .mat-list-item {
+    height: max-content !important;
+  }
+  .mat-divider {
+    padding: 7px;
+  }
+  .title {
+      color: #b085f5;
+  }
+  
+  .dialog-action {
+    margin-top: 35px !important;
+    justify-content:flex-end;
+    border-top: 1px solid gray;
+
+  }
+
+  .dialog-content {
+      margin-top: 15px;
+  }
+  .yes-button, .cancel-button {
+    font-size: $font-size - 7px;
+    width: 100px;
+
+  }
+
+  .yes-button {
+      background-color: #a00037 !important;
+  }
+
+  .cancel-button {
+      background-color: #4b636e !important;
+  }

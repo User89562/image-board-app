@@ -1,0 +1,48 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-form-field class="tag-form-field">
+    <mat-chip-list #chipList aria-label="Tag Search">
+      <mat-chip
+        *ngFor="let tag of searchTags"
+        [selectable]="false"
+        class="tag-chip"
+        color="primary"
+        [removable]="true"
+        (removed)="removeSearchTag(tag)"
+        [ngClass]="'tag-namespace-' + (this.tagUtils.getNamespaceNoSpace(tag)? this.tagUtils.getNamespaceNoSpace(tag): 'default')"
+      >
+        {{ tag }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        #tagInput
+        placeholder="Tag Search"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        matChipInputAddOnBlur="false"
+        (matChipInputTokenEnd)="chipInputEvent($event)"
+        [formControl]="tagCtrl"
+      />
+    </mat-chip-list>
+    <!--
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag" [ngClass]="'tag-namespace-' + this.tagUtils.getNamespaceNoSpace(tag)">
+          {{tag}}
+        </mat-option>
+      </mat-autocomplete>
+      -->
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Season Filter</mat-label>
+        <mat-select [(value)]="selectedSort" class="selection-text">
+          <mat-option
+            [value]="option"
+            *ngFor="let option of sortTypes;"
+            (onSelectionChange)="sortSelectionChange($event)"
+            class="option-container"
+            >{{ option }}</mat-option
+          >
+        </mat-select>
+  </mat-form-field>
+</div>
+
+

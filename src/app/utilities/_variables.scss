@@ -1,0 +1,39 @@
+$font-size: 18px;
+$heading-font-size: $font-size + 8px;
+
+$image-height: 300px;
+$image-width: 200px;
+
+
+
+$primary-blue: #2979FF;
+$archived-color: #E57373;
+$primary-dark-color: #424242;
+$error-color: #E53935;
+
+$divider-color: #c3fdff;
+
+
+$form-field-width: 70%;
+$regex-color: #ffc1e3;
+$season-color: #6ab7ff;
+$anime-info-color: #4ebaaa;
+$series-color: #ffc947;
+$nyaa-color: #b085f5;
+$episode-color:#e6ee9c;
+
+$confirm-color: #69f0ae;
+
+
+// Original tag colors from Hydrus source code
+$tag-colors: (
+    system: rgb(153, 101, 21),
+    meta: rgb(0, 0, 0),
+    creator: rgb(170, 0, 0),
+    studio: rgb(128, 0, 0),
+    character: rgb(0, 170, 0),
+    person: rgb(0, 128, 0),
+    series: rgb(170, 0, 170),
+    default-namespace: rgb(114, 160, 193),
+    no-namespace: rgb(0, 111, 250)
+);

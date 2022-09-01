@@ -1,0 +1,26 @@
+<div class="main-container">
+  <div *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div
+    *ngIf="hydrusFiles && !loading"
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+  >
+    <div
+      *ngFor="let file of hydrusFiles"
+      [ngStyle]="{
+        border: isFileSelected(file)
+          ? '8px solid #007ac1'
+          : '8px solid transparent'
+      }"
+      class="file-filter-container"
+      (click)="selectFile(file)"
+    >
+      <app-image-display [hydrusFile]="file"></app-image-display>
+    </div>
+  </div>
+  <button mat-flat-button color="primary" (click)="updateFiles()">
+    Submit
+  </button>
+</div>

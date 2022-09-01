@@ -1,0 +1,14 @@
+<h1 mat-dialog-title [style.color]=color class="title">{{data.title}}</h1>
+<mat-divider *ngIf="data.messageArray.length > 0" id="dark-mode-divider"></mat-divider>
+<div mat-dialog-content *ngIf="data.messageArray.length > 0">
+  <div fxLayoutAlign="start center">
+    <p *ngFor="let n of data.messageArray" matLine fxLayoutAlign="center center">
+      {{n}}
+    </p>
+  </div>
+</div>
+
+<mat-divider id="dark-mode-divider"></mat-divider>
+<div mat-dialog-actions class="dialog-action">
+  <button mat-raised-button color="warn" (click)="onClick()">Ok</button>
+</div>

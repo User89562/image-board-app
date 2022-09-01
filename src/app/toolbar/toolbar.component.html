@@ -1,0 +1,50 @@
+<mat-toolbar class="toolbar-container">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="65px">
+    <a
+      mat-list-item
+      *ngFor="let link of navLinks"
+      [routerLink]="link.path"
+      routerLinkActive
+      #rla="routerLinkActive"
+      class="nav-links"
+    >
+      {{ link.label }}
+    </a>
+  </div>
+
+  <span class="toolbar-spacer"></span>
+
+  <!--right side buttons-->
+  <div fxLayoutGap="35px" fxLayout="row" fxLayoutAlign="center center">
+    <div>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="otherMenus"
+        class="panel-settings-button"
+      >
+        <div *ngIf="userAvatar; else adminPanel" fxLayoutAlign="center center">
+          <img id="mat-icon-32" [src]="userAvatar" class="user-avatar" />
+        </div>
+
+        <ng-template #adminPanel>
+          <mat-icon id="mat-icon-32">admin_panel_settings</mat-icon>
+        </ng-template>
+      </button>
+      <mat-menu
+        #otherMenus="matMenu"
+        fxLayoutAlign="center center"
+        class="panel-settings-menu"
+      >
+        <div *ngFor="let pLink of panelLinks">
+          <a mat-menu-item [routerLink]="pLink.path">{{ pLink.label }}</a>
+          <mat-divider id="dark-mode-divider"></mat-divider>
+        </div>
+        <div mat-menu-item fxLayoutAlign="space-between center" fxLayout="row">
+          <button mat-icon-button class="logout-button" (click)="logoutUser()">
+            <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>

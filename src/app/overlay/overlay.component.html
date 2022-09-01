@@ -1,0 +1,87 @@
+<div fxLayoutAlign="center center" fxFlexFill>
+    <mat-card class="message-box" fxLayout="column">
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-title>
+          <h1>Please wait ...</h1>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider id="dark-mode-divider" class="card-divider"></mat-divider>
+  
+      <mat-card-content fxLayoutAlign="center" fxLayout="column" fxFlex>
+        <div *ngFor="let item of items | keyvalue">
+          <div
+            *ngIf="item.key !== 'error'; else errorBlock"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            fxLayoutGap="5px"
+          >
+            <h2 fxFlex="70" class="item-key">{{ item.key }} ...</h2>
+            <div fxLayoutAlign="start start">
+              <span
+                *ngIf="item.value === 'waiting'; else elseBlock"
+                class="item-status"
+                ><mat-spinner diameter="20"></mat-spinner
+              ></span>
+              <ng-template #elseBlock class="item-status">
+                <span class="item-status"
+                  ><mat-icon>{{ item.value }}</mat-icon></span
+                >
+              </ng-template>
+            </div>
+          </div>
+          <ng-template #errorBlock>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              fxLayoutGap="5px"
+              fxLayout="column"
+            >
+              <h2 fxFlex="90" class="error-message">
+                <span class="error-color">An Error has occured</span>:
+              </h2>
+              <p>{{ item.value }}</p>
+            </div>
+          </ng-template>
+        </div>
+      </mat-card-content>
+
+      <mat-divider id="dark-mode-divider" class="card-divider"></mat-divider>
+  
+      <mat-card-actions fxLayoutGap="5px" dir="rtl">
+        <button
+          mat-raised-button
+          color="accent"
+          [disabled]="
+            !(
+              isComplete() === processingStates.error ||
+              isComplete() === processingStates.complete
+            )
+          "
+          (click)="
+            closeOverlay(
+              errorFound
+                ? enumUtil.messageType.error
+                : enumUtil.messageType.redirect
+            )
+          "
+        >
+          Ok
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          *ngIf="displayAdd"
+          [disabled]="
+            !(
+              isComplete() === processingStates.error ||
+              isComplete() === processingStates.complete
+            )
+          "
+          (click)="closeOverlay(enumUtil.messageType.addAnother)"
+        >
+          Another<mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  

@@ -1,0 +1,30 @@
+<div class="main-container">
+  <div fxLayout="column">
+    <app-search-tag-input
+      [initalTags]="initalTags"
+      [initalSortDir]="sortDir"
+      [initalSortType]="sortType"
+      (tags)="tagsChanged($event)"
+      (sortType)="sortTypeChanged($event)"
+      (sortDir)="sortDirChanged($event)"
+      class="tag-input"
+    ></app-search-tag-input>
+    <button mat-flat-button (click)="displayOptions()">Send to Archive/Delete Filter</button>
+  </div>
+
+  <div>
+    <div *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div
+      *ngIf="hydrusFiles && !loading"
+      
+      fxLayout="row wrap"
+      fxLayoutAlign="center center"
+    >
+      <div *ngFor="let file of hydrusFiles" class="files-container">
+        <app-image-display [hydrusFile]="file"></app-image-display>
+      </div>
+    </div>
+  </div>
+</div>
