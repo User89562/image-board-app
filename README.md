@@ -1,9 +1,4 @@
-# ImageBoardApp
+# Image Board App
 
-## Packges
-
-
-
-proxy error work around?
-
-https://stackoverflow.com/questions/60709744/angular-self-signed-certificate-proxy-error
+## [Packages List](packages.md)
+## [Changelog](CHANGELOG.md)
