@@ -1,0 +1,42 @@
+.custom-swiper-container {
+  height: 96vh;
+  width: 96vw;
+}
+
+.current-image {
+  height: 95vh;
+  width: 95vw;
+  object-position: center;
+  object-fit: contain;
+}
+
+.current-video {
+  height: 90vh;
+  width: 90vw;
+  object-position: center;
+  object-fit: contain;
+}
+
+.close-fullscreen-button {
+  color: orangered;
+  position: absolute;
+  right: 30px;
+  top: 10;
+  font-size: 35px;
+  height: 35px;
+  width: 35px;
+  line-height: 35px;
+
+  .mat-icon {
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+  }
+}
+
+.num-files-container {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}

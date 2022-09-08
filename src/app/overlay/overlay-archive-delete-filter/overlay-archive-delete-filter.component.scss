@@ -1,0 +1,88 @@
+.custom-swiper-container {
+    height: 90vh;
+    width: 90vw;
+    padding: 5px;
+  }
+  
+  .current-image {
+    height: 85vh;
+    max-width: 80vw;
+    object-position: center;
+    object-fit: contain;
+  }
+  
+  .current-video {
+    width: 90vw;
+    height: 85vh;
+    object-position: center;
+    object-fit: contain;
+  }
+  
+  .archive-button {
+    position: absolute;
+    height: 80%;
+    width: 55px;
+    top: 9%;
+    right: 25px;
+  }
+  
+  .delete-button {
+    position: absolute;
+    height: 80%;;
+    width: 55px;
+    left: 25px;
+    top: 9%;
+  }
+  
+  .skip-button {
+    position: absolute;
+    width: 80%;
+    top: 0;
+    right: 10%;
+  }
+  
+  .previous-button {
+    position: absolute;
+    width: 80%;
+    bottom: 15px;
+    right: 10%;
+  }
+  
+  .archive-button,
+  .delete-button,
+  .skip-button,
+  .previous-button {  
+    .mat-icon {
+      font-size: 55px;
+      height: 55px;
+      width: 55px;
+      line-height: 55px;
+      color: #00b0ff;
+      text-shadow: 0px 0px 1px black;
+    }
+  }
+  
+  .close-fullscreen-button {
+    color: orangered;
+    position: absolute;
+    right: 30px;
+    top: 25;
+    font-size:35px;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+  
+    .mat-icon {
+      font-size: 35px;
+      height: 35px;
+      width: 35px;
+      line-height: 35px;
+    }
+  }
+  
+.num-files-container {
+    position:absolute;
+    right: 15px;
+    bottom: 15px;
+}
+  

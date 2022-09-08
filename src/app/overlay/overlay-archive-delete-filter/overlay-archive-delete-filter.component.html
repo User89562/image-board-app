@@ -1,0 +1,52 @@
+<div class="main-container">
+    <button
+      mat-icon-button
+      class="close-fullscreen-button"
+      (click)="closeFullscreen()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <div
+      fxLayoutAlign="center center"
+      *ngIf="hydrusFiles && currentFile"
+      class="custom-swiper-container"
+      (swipe)="onSwipe($event)"
+      [@cardAnimator]="animationState"
+      (@cardAnimator.done)="resetAnimationState($event)"
+      (swipeleft)="startAnimation('slideOutLeft')"
+      (swiperight)="startAnimation('slideOutRight')"
+    >
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <div *ngIf="imageType(currentFile.mime); else video">
+        <img
+          [hidden]="loading && !complete"
+          (load)="onLoad()"
+          [src]="currentFile.file_url"
+          draggable="false"
+          class="current-image"
+        />
+      </div>
+      <ng-template #video>
+        <video class="current-video" controls muted (loadeddata)="onLoad()"  [hidden]="loading && !complete">
+          <source [src]="currentFile.file_url" [type]="currentFile.mime" />
+          Your browser does not support the video tag.
+        </video>
+      </ng-template>
+    </div>
+    <button mat-icon-button class="delete-button" (click)="sendToDelete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button class="archive-button" (click)="sendToArchive()">
+      <mat-icon>archive</mat-icon>
+    </button>
+    <button mat-icon-button class="skip-button" (click)="sendToSkip()">
+      <mat-icon>skip_next</mat-icon>
+    </button>
+    <button mat-icon-button class="previous-button" (click)="sendToPrevious()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="num-files-container">
+        {{currentFileIndex+1}} / {{hydrusFiles.length}}
+    </div>
+  </div>
+  

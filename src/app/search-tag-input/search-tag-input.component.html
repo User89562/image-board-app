@@ -8,7 +8,12 @@
         color="primary"
         [removable]="true"
         (removed)="removeSearchTag(tag)"
-        [ngClass]="'tag-namespace-' + (this.tagUtils.getNamespaceNoSpace(tag)? this.tagUtils.getNamespaceNoSpace(tag): 'default')"
+        [ngClass]="
+          'tag-namespace-' +
+          (this.tagUtils.getNamespaceNoSpace(tag)
+            ? this.tagUtils.getNamespaceNoSpace(tag)
+            : 'default')
+        "
       >
         {{ tag }}
         <mat-icon matChipRemove>cancel</mat-icon>
@@ -31,18 +36,19 @@
       </mat-autocomplete>
       -->
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Season Filter</mat-label>
-        <mat-select [(value)]="selectedSort" class="selection-text">
-          <mat-option
-            [value]="option"
-            *ngFor="let option of sortTypes;"
-            (onSelectionChange)="sortSelectionChange($event)"
-            class="option-container"
-            >{{ option }}</mat-option
-          >
-        </mat-select>
+  <mat-form-field appearance="outline">
+    <mat-label>Sort Filter</mat-label>
+    <mat-select [(value)]="selectedSort" class="selection-text">
+      <mat-option
+        [value]="option"
+        *ngFor="let option of sortTypes"
+        (onSelectionChange)="sortSelectionChange($event)"
+        class="option-container"
+        >{{ option }}</mat-option
+      >
+    </mat-select>
   </mat-form-field>
+  <button mat-flat-button class="sort-direction-button" (click)="changeSortDirection($event)">
+    <mat-icon>{{selectedDir ? 'south': 'north'}}</mat-icon>
+  </button>
 </div>
-
-

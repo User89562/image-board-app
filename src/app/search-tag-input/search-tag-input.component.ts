@@ -5,10 +5,8 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable, startWith, map } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { TagUtils } from '../utilities/tag-utils';
-import { MatSelectionListChange } from '@angular/material/list';
 import { SortingUtils } from '../utilities/sorting-utils';
 
 @Component({
@@ -21,6 +19,7 @@ export class SearchTagInputComponent implements OnInit {
   sortTypes: string [];
   selectedSort: string | undefined;
   sortTypeNum: number | undefined; 
+  selectedDir: boolean;
   searchTags: string[] = [];
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -44,6 +43,7 @@ export class SearchTagInputComponent implements OnInit {
     this.sortTypes = this.sortingUtils.getSortTypeArray;
     this.selectedSort = this.sortingUtils.sortTypes.importTime;
     this.sortTypeNum = this.sortingUtils.findSortTypeInt(this.sortingUtils.sortTypes.importTime);
+    this.selectedDir = false;
     
     
     /*
@@ -61,6 +61,9 @@ export class SearchTagInputComponent implements OnInit {
     if (this.initalSortType) {
       this.sortTypeNum = this.initalSortType;
       this.selectedSort = this.sortingUtils.getByValue(this.initalSortType);
+    }
+    if (this.initalSortDir) {
+      this.selectedDir = this.initalSortDir;
     }
   }
 
@@ -132,6 +135,11 @@ export class SearchTagInputComponent implements OnInit {
     if (event.isUserInput) {
       this.sortType.emit(this.sortingUtils.findSortTypeInt(event.source.value));
     }
+  }
+
+  changeSortDirection(event: any): void {
+      this.selectedDir =!this.selectedDir;
+      this.sortDir.emit(this.selectedDir);
   }
 
 }

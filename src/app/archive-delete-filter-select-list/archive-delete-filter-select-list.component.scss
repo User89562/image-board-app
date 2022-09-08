@@ -1,0 +1,40 @@
+.file-filter-container {
+    margin: 8px;
+}
+
+.color-block {
+    width: 30px;
+    height: 5px;
+}
+
+#selected-color {
+    background-color: #00e676;
+}
+
+#skip-color {
+    background-color: #007ac1;
+}
+
+#delete-color {
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+.mouse-button-icons {
+    width: auto;
+    height: 20px;
+    position: relative;
+    top: -5px;
+}
+
+.submit-button {
+    width: 125px;
+    color: whitesmoke;
+    text-shadow: 0px 0px 1px black;
+}
+
+.file-statuses {
+    margin-left:auto;
+    margin-right: 25px;
+    margin-bottom: -8px;
+}

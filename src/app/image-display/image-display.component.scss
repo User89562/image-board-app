@@ -1,10 +1,22 @@
-
 .image-thumbnail {
-    width: 320px;
-    height: 450px;
-    object-fit: contain;
+  object-fit: contain;
+}
+.file-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  font-variant: small-caps;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
 }
 
 #image-container {
-    padding: 0px;
+  padding: 0px;
 }
+
+.video {
+  object-fit: fill;
+}
+
+

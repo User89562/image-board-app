@@ -1,3 +1,5 @@
+import { HydrusFile } from './../entities/hydrus-file';
+import { UserFiles } from './../entities/archive-delete-filter';
 import { EventEmitter, Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 
@@ -10,26 +12,29 @@ export class InjectorService {
   // Observable  sources
   private processingSource = new EventEmitter<Map<string, string>>();
   private overlaySource = new Subject<string>();
-  private newReleasesFoundSource = new Subject<string>();
-  private torrentSelectionSource = new EventEmitter<string>();
+  private fullscreenOverlaySource = new Subject<{files: HydrusFile[], currentIndex: number, currentFileChanges?: UserFiles}>();
+  private sendFilesSource = new Subject<{files: UserFiles, makeChanges: boolean, continueFilter: boolean}>();
+
 
   // Observable streams
   proccessingFound$ = this.processingSource.asObservable();
   overlaySourceFound$ = this.overlaySource.asObservable();
-  newReleasesFound$ = this.newReleasesFoundSource.asObservable();
-  torrentSelectionFound$ = this.torrentSelectionSource.asObservable();
+  fullscreenOverlaySourceFound$ = this.fullscreenOverlaySource.asObservable();
+  sendFilesSourceFound$ = this.sendFilesSource.asObservable();
+
 
   announceProcessing(message: Map<string, string>): void {
     this.processingSource.emit(message);
   }
 
-  // Service message commands
-  announceNewReleases(mission: string) {
-    this.newReleasesFoundSource.next(mission);
+  announceFullscreenOverlay(files: {files: HydrusFile[], currentIndex: number, currentFileChanges?: UserFiles}): void {
+    this.fullscreenOverlaySource.next(files);
   }
 
-  announceTorrentSelection(message: string): void {
-    this.torrentSelectionSource.emit(message);
+
+
+  closeFullscreenOverlay(files: {files: UserFiles, makeChanges: boolean, continueFilter: boolean}): void {
+    this.sendFilesSource.next(files);
   }
 
   closeOverlay(msg: string): void {

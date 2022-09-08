@@ -1,11 +1,34 @@
 .archive-delete-disabled {
-    color: red;
+  color: red;
 }
 
-.archive-delete-enabled{
-    color: green;
+.archive-delete-enabled {
+  color: green;
 }
 
 .files-container {
-    margin: 10px;
+  margin: 10px;
+}
+
+.image-container {
+  width: 500px;
+  height: auto;
+}
+
+.filter-button {
+  width: 250px;
+}
+
+.image-list-image {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  animation: fadeIn ease 500ms;
+  background-color: #c7c5cb;
+}
+
+.grid-item > a {
+  -webkit-tap-highlight-color: transparent;
 }

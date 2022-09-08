@@ -8,6 +8,14 @@ export enum MESSAGE_TYPE {
   cancel = "cancel",
 }
 
+export enum SWIPE_DIRECTION{
+  DIRECTION_NONE=0,
+  DIRECTION_LEFT=2,
+  DIRECTION_RIGHT=4,
+  DIRECTION_UP=8,
+  DIRECTION_DOWN=16
+}
+
 
 
 export class EnumUtil {
@@ -15,5 +23,9 @@ export class EnumUtil {
 
   public static get messageType(): typeof MESSAGE_TYPE {
     return MESSAGE_TYPE;
+  }
+
+  public static get swipeDirection(): typeof SWIPE_DIRECTION {
+    return SWIPE_DIRECTION;
   }
 }

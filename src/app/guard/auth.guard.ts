@@ -28,7 +28,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   canLoad(route: Route): true | UrlTree {
     const url = `/${route.path}`;
-    console.log('g');
 
     return this.checkLogin(url);
   }
@@ -38,9 +37,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if (!(this.loginUtil.retrieveKey() == '' && this.loginUtil.retrieveUrl() == '')) {
       return true;
     }
-
-
-
     // Redirect to the login page
     return this.router.parseUrl('/login');
   }

@@ -1,0 +1,65 @@
+<div fxLayout="column" class="main-container">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row wrap" fxLayoutGap="20px">
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <p class="color-block" id="selected-color"></p>
+        <img
+          src="/assets/custom-icons/left-click.png"
+          class="mouse-button-icons"
+        />
+        <p>Archive</p>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <p class="color-block" id="skip-color"></p>
+        <img
+          src="/assets/custom-icons/middle-click.png"
+          class="mouse-button-icons"
+        />
+        <p>Skip</p>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <p class="color-block" id="delete-color"></p>
+        <img
+          src="/assets/custom-icons/no-click.png"
+          class="mouse-button-icons"
+        />
+        <p>Delete</p>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <div
+      *ngFor="let file of hydrusFiles"
+      class="file-filter-container"
+      fxLayout="column"
+    >
+      <div
+        (click)="selectFile(file, $event)"
+        (auxclick)="onAuxClick(file, $event)"
+        [ngStyle]="{ border: isFileSelected(file) }"
+      >
+        <app-image-display
+          [hydrusFile]="file"
+          [heightNum]="'330'"
+          [widthNum]="'365'"
+          [thumbnail]="false"
+        ></app-image-display>
+      </div>
+
+      <button mat-flat-button (click)="fullscreenView(file)" color="accent">
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="submitFiles()"
+    class="submit-button"
+  >
+    Submit
+  </button>
+</div>

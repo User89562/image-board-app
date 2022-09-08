@@ -1,5 +1,43 @@
-<div fxLayoutAlign="center center" class="card-container">
-  <mat-card id="image-container" fxLayoutAlign="center center">
-    <img [src]="hydrusFile.thumbnail_url" class="image-thumbnail" />
+<div fxLayoutAlign="center center" class="card-container" *ngIf="hydrusFile">
+  <mat-card
+    id="image-container"
+    fxLayoutAlign="center center"
+    fxLayout="column"
+  >
+    <h3
+      class="file-title"
+      [ngStyle]="{
+        'width.px': widthNum ? widthNum : heightNum
+      }"
+      [matTooltip]="determineFileTitle()"
+    >
+      {{ determineFileTitle() }}
+    </h3>
+    <div fxLayout="row">
+      <mat-icon *ngIf="hydrusFile.has_audio">videocam</mat-icon>
+      <mat-icon *ngIf="hydrusFile.has_audio">volume_up</mat-icon>
+      <mat-icon *ngIf="hydrusFile.is_inbox"> mail</mat-icon>
+      <mat-icon *ngIf="!hydrusFile.is_inbox"> archive</mat-icon>
+      <mat-icon *ngIf="hydrusFile.is_trashed"> delete</mat-icon>
+    </div>
+    <img
+      *ngIf="thumbnail; else hdImage"
+      [src]="hydrusFile.thumbnail_url"
+      class="image-thumbnail"
+      [ngStyle]="{
+        'height.px': heightNum,
+        'width.px': widthNum ? widthNum : heightNum
+      }"
+    />
+    <ng-template #hdImage>
+      <img
+        [src]="hydrusFile.file_url"
+        class="image-thumbnail"
+        [ngStyle]="{
+          'height.px': heightNum,
+          'width.px': widthNum ? widthNum : heightNum
+        }"
+      />
+    </ng-template>
   </mat-card>
 </div>

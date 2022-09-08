@@ -1,6 +1,5 @@
 import { environment } from 'src/environments/environment.prod';
 import { Title } from '@angular/platform-browser';
-import { ApiService } from './services/api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  constructor(private apiService: ApiService, titleService: Title) {
+  constructor(titleService: Title) {
     titleService.setTitle(environment.app_name);
   }
 

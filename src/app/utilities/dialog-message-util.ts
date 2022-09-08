@@ -1,3 +1,4 @@
+import { DialogFilterConfirmationComponent } from './../dialogs/dialog-filter-confirmation/dialog-filter-confirmation.component';
 
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { ActionListDialogComponent } from "../dialogs/action-list-dialog/action-list-dialog.component";
@@ -60,6 +61,21 @@ export class DialogMessageUtils {
     }
 
     return this.dialog.open(DialogConfirmationBoxComponent, {
+      data: {messageArray: dialogMessageArray, title: dialogTitle}
+    });
+
+  }
+
+  displayFilterConfirmation(dialogMessage: string, dialogTitle: string): MatDialogRef<any> {
+    let dialogMessageArray = [];
+
+    if (typeof(dialogMessage) === 'string') {
+      dialogMessageArray = [dialogMessage];
+    } else {
+      dialogMessageArray = dialogMessage;
+    }
+
+    return this.dialog.open(DialogFilterConfirmationComponent, {
       data: {messageArray: dialogMessageArray, title: dialogTitle}
     });
 

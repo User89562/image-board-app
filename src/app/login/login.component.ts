@@ -1,5 +1,10 @@
 import { ApiService } from "./../services/api.service";
-import { Component, OnInit } from "@angular/core";
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core";
 import { Validators, UntypedFormBuilder } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
@@ -12,7 +17,7 @@ import { LoginUtil } from "../utilities/login-util";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   message: string;
   hide = true;
   loggingIn = false;
@@ -24,16 +29,23 @@ export class LoginComponent implements OnInit {
     apiKey: ["", Validators.required],
   });
   loginError: string;
+  logo: string;
 
   constructor(
     private router: Router,
     private fb: UntypedFormBuilder,
     titleService: Title,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private cdr: ChangeDetectorRef
   ) {
     this.message = "";
     this.loginError = "";
+    this.logo = "/assets/app-logos/app-logo.png";
     titleService.setTitle("Login | " + environment.app_name);
+  }
+  ngAfterViewInit(): void {
+    this.logo = this.determineLoginLogo();
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void {
@@ -68,6 +80,31 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.message = "Successfully logged out";
+  }
+
+  determineLoginLogo(): string {
+    const path = "/assets/app-logos/";
+    const images = [
+      "app-logo.png",
+      "app-logo2.png",
+      "app-logo3.png",
+      "app-logo4.png",
+      "app-logo5.png",
+      "app-logo6.png",
+      "app-logo7.png",
+      "app-logo8.png",
+      "app-logo9.png",
+      "app-logo10.png",
+      "app-logo11.png",
+      "app-logo12.png",
+      "app-logo13.png",
+      "app-logo14.png",
+      "app-logo15.png",
+      "app-logo16.png",
+    ];
+    let index = Math.floor(Math.random() * (images.length - 1 - 0 + 1) + 0);
+
+    return path + images[index];
   }
 
   onSubmit(formValues: LoginForm): void {

@@ -30,6 +30,9 @@ export class ApiService {
 
   getFilesSearch(tags: string[], sortType: string, sortDir: string): Observable<FileSearch> {
     let searchUrl = LoginUtil.retrieveUrl() + 'get_files/search_files';
+    if (!tags.some(s => s.includes('system:limit'))) {
+      tags.push('system:limit = 45');
+    }
     let params = encodeURIComponent(JSON.stringify(tags));
     const httpOptions = {
       headers: {'rejectUnauthorized': 'false', "Hydrus-Client-API-Access-Key": `${this.apiKey}`, "Access-Control-Allow-Origin": "*"},
@@ -78,7 +81,6 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  //might have to be changed to be similar to getthumbnail, only returning a string
   getFiles(fileId: number): any {
     let searchUrl = `${this.backendApi}file`;
     const httpOptions = {
@@ -105,10 +107,22 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  //Doesn't seem to work as sub maybe due to blob ?
   public getThumbnailURLFromId(file_id: number): string {
     return this.backendApi + 'get_files/thumbnail?file_id=' + file_id + '&Hydrus-Client-API-Access-Key=' + this.apiKey;
   }
+
+  public getThumbnailURLFromHash(hash: string): string {
+    return this.backendApi + 'get_files/thumbnail?hash=' + hash+ '&Hydrus-Client-API-Access-Key=' + this.apiKey;
+  }
+
+   /**
+   * Generates a file's URL from its Hash
+   * @param file_hash the hash of the file to get
+   * @return the URL of the raw full file referenced by the hash
+   */
+    public getFileURLFromHash(file_hash: string): string {
+      return this.backendApi + 'get_files/file?hash=' + file_hash + '&Hydrus-Client-API-Access-Key=' + this.apiKey;
+    }
 
     /********************** MISC **************************************** */
 

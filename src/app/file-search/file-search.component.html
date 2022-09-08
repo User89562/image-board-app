@@ -9,21 +9,35 @@
       (sortDir)="sortDirChanged($event)"
       class="tag-input"
     ></app-search-tag-input>
-    <button mat-flat-button (click)="displayOptions()">Send to Archive/Delete Filter</button>
+    <div fxLayout.gt-sm="row" fxLayoutGap="10px" fxLayout.lt-md="column">
+      <button mat-flat-button (click)="startFilter()" class="filter-button">
+        Send to Archive/Delete Filter
+      </button>
+      <button mat-flat-button (click)="viewRecentlyChanged()" [disabled]="noRecentlyChangedFiles()">View recently changed</button>
+      <section fxShow fxHide.lt-md>
+        <mat-button-toggle-group
+          [(ngModel)]="filterStyle"
+          aria-label="Filter Selection Type"
+        >
+          <mat-button-toggle value="select-list">Select List</mat-button-toggle>
+          <mat-button-toggle value="full-screen">Full Screen</mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+    </div>
+    
   </div>
 
-  <div>
+  <div class="content-container">
     <div *ngIf="loading">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <div
       *ngIf="hydrusFiles && !loading"
-      
       fxLayout="row wrap"
       fxLayoutAlign="center center"
     >
       <div *ngFor="let file of hydrusFiles" class="files-container">
-        <app-image-display [hydrusFile]="file"></app-image-display>
+        <app-image-display [hydrusFile]="file" [widthNum]="'265'" [heightNum]="'230'" [thumbnail]="true"></app-image-display>
       </div>
     </div>
   </div>
