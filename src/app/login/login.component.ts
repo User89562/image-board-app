@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   determineLoginLogo(): string {
-    const path = "/assets/app-logos/";
+    const path = "assets/app-logos/";
     const images = [
       "app-logo.png",
       "app-logo2.png",
