@@ -9,11 +9,14 @@
       (sortDir)="sortDirChanged($event)"
       class="tag-input"
     ></app-search-tag-input>
-    <div fxLayout.gt-sm="row" fxLayoutGap="10px" fxLayout.lt-md="column">
-      <button mat-flat-button (click)="startFilter()" class="filter-button">
+
+    <mat-divider id="dark-mode-divider" fxHide fxShow.lt-md></mat-divider>
+
+    <div fxLayout.gt-sm="row" fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center center">
+      <button mat-flat-button (click)="startFilter()" class="filter-button" color="primary">
         Send to Archive/Delete Filter
       </button>
-      <button mat-flat-button (click)="viewRecentlyChanged()" [disabled]="noRecentlyChangedFiles()">View recently changed</button>
+    <!--  <button mat-flat-button (click)="viewRecentlyChanged()" [disabled]="noRecentlyChangedFiles()">View recently changed</button>-->
       <section fxShow fxHide.lt-md>
         <mat-button-toggle-group
           [(ngModel)]="filterStyle"
@@ -26,6 +29,7 @@
     </div>
     
   </div>
+
 
   <div class="content-container">
     <div *ngIf="loading">

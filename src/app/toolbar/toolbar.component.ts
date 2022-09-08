@@ -12,13 +12,9 @@ import { LoginUtil } from '../utilities/login-util';
 export class ToolbarComponent implements OnInit {
   navLinks = [
     {path: 'file-search', label: 'Search'},
-    {path: 'archive-filter', label: 'Archive Filter'},
   ];
   panelLinks = [
-    {path: 'season/add', label: 'Season Add'},
-    {path: 'transmission', label: 'Transmission'},
-    {path: 'torrent-search', label: 'Torrent Search'},
-    {path: 'regex-template', label: 'Regex Templates'},
+    {path: '', label: ''},
   ];
   
   loading = true;

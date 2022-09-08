@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "/src/app/utilities/variables";
 
 body {
   margin: 0;
@@ -28,6 +28,12 @@ body {
 // used for archive-delete-filter overlay
 .backdrop-class {
   background: black !important;
+}
+
+// divider for dark mode
+#dark-mode-divider {
+  border-color: $divider-color !important;
+  padding: 8px;
 }
 
 

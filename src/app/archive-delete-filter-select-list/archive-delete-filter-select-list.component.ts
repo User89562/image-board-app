@@ -153,7 +153,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
   }
 
   selectFile(file:HydrusFile, e: any): void {
-    console.log(e);
     this.currentIndex = this.hydrusFiles.indexOf(file);
     if (this.fileChanges.archive.includes(file)) {
       this.fileChanges.archive.splice(this.fileChanges.archive.indexOf(file), 1);

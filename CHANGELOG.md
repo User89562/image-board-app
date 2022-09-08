@@ -1,3 +1,6 @@
+# v2.1a
+- adjust file search layout for mobile
+
 # v2.0a
 - added functioning archive-delete filter for mobile and desktop
     - desktop can choose either select-list view and/or fullscreen (can swap between the two)

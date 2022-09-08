@@ -19,6 +19,8 @@ import { Overlay } from "@angular/cdk/overlay";
   templateUrl: "./file-search.component.html",
   styleUrls: ["./file-search.component.scss"],
 })
+
+//TODO: show recently changed files in a seperate area
 export class FileSearchComponent implements OnInit, OnDestroy {
   searchTags: string[];
   sortType: number;
@@ -50,7 +52,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
     this.hydrusFiles = [];
     this.recentlyChangedFileIds = [];
     this.continueFilter = false;
-    this.initalTags = ["system:limit = 5", "system:inbox"];
+    this.initalTags = ["system:limit = 35", "system:inbox"];
     this.searchTags = this.initalTags;
     this.overlayUtil = new OverlayUtil(viewContainerRef, overlay);
     this.filterStyle = "select-list";

@@ -1,4 +1,11 @@
-<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+<div
+  fxLayoutGap.lt-md="5px"
+  fxLayoutAlign.lt-md="center start"
+  fxLayout.lt-md="column"
+  fxLayoutGap.gt-sm="10px"
+  fxLayoutAlign.gt-sm="center center"
+  fxLayout.gt-sm="row"
+>
   <mat-form-field class="tag-form-field">
     <mat-chip-list #chipList aria-label="Tag Search">
       <mat-chip
@@ -36,19 +43,26 @@
       </mat-autocomplete>
       -->
   </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Sort Filter</mat-label>
-    <mat-select [(value)]="selectedSort" class="selection-text">
-      <mat-option
-        [value]="option"
-        *ngFor="let option of sortTypes"
-        (onSelectionChange)="sortSelectionChange($event)"
-        class="option-container"
-        >{{ option }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-  <button mat-flat-button class="sort-direction-button" (click)="changeSortDirection($event)">
-    <mat-icon>{{selectedDir ? 'south': 'north'}}</mat-icon>
-  </button>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <mat-form-field appearance="outline">
+      <mat-label>Sort Filter</mat-label>
+      <mat-select [(value)]="selectedSort" class="selection-text">
+        <mat-option
+          [value]="option"
+          *ngFor="let option of sortTypes"
+          (onSelectionChange)="sortSelectionChange($event)"
+          class="option-container"
+          >{{ option }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-flat-button
+      class="sort-direction-button"
+      (click)="changeSortDirection($event)"
+    >
+      <mat-icon>{{ selectedDir ? "south" : "north" }}</mat-icon>
+    </button>
+  </div>
+
 </div>
