@@ -12,11 +12,21 @@
 
     <mat-divider id="dark-mode-divider" fxHide fxShow.lt-md></mat-divider>
 
-    <div fxLayout.gt-sm="row" fxLayoutGap="10px" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center center">
-      <button mat-flat-button (click)="startFilter()" class="filter-button" color="primary">
+    <div
+      fxLayout.gt-sm="row"
+      fxLayoutGap="10px"
+      fxLayout.lt-md="column"
+      fxLayoutAlign.lt-md="center center"
+    >
+      <button
+        mat-flat-button
+        (click)="startFilter()"
+        class="filter-button"
+        color="primary"
+      >
         Send to Archive/Delete Filter
       </button>
-    <!--  <button mat-flat-button (click)="viewRecentlyChanged()" [disabled]="noRecentlyChangedFiles()">View recently changed</button>-->
+      <!--  <button mat-flat-button (click)="viewRecentlyChanged()" [disabled]="noRecentlyChangedFiles()">View recently changed</button>-->
       <section fxShow fxHide.lt-md>
         <mat-button-toggle-group
           [(ngModel)]="filterStyle"
@@ -27,13 +37,14 @@
         </mat-button-toggle-group>
       </section>
     </div>
-    
   </div>
 
-
   <div class="content-container">
-    <div *ngIf="loading">
+    <div *ngIf="loading" fxLayout="column" class="loading-container">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p matLine *ngIf="processing" class="processing-text">
+        Processing Filter...
+      </p>
     </div>
     <div
       *ngIf="hydrusFiles && !loading"
@@ -41,7 +52,12 @@
       fxLayoutAlign="center center"
     >
       <div *ngFor="let file of hydrusFiles" class="files-container">
-        <app-image-display [hydrusFile]="file" [widthNum]="'265'" [heightNum]="'230'" [thumbnail]="true"></app-image-display>
+        <app-image-display
+          [hydrusFile]="file"
+          [widthNum]="'265'"
+          [heightNum]="'230'"
+          [thumbnail]="true"
+        ></app-image-display>
       </div>
     </div>
   </div>

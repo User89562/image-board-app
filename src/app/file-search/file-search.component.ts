@@ -30,6 +30,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
   hydrusFiles: HydrusFile[];
   searchParams!: URLSearchParams;
   loading = true;
+  processing = false;
   mobileView = false;
   overlayUtil: OverlayUtil;
   filterStyle: string;
@@ -224,6 +225,9 @@ export class FileSearchComponent implements OnInit, OnDestroy {
   }
 
   updateFileStatuses(userFiles: UserFiles): void {
+    this.loading = true;
+    this.processing = true;
+
     let archiveIds = userFiles.archive.map((a) => a.file_id);
     let deleteIds = userFiles.delete.map((a) => a.file_id);
 
@@ -236,6 +240,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
           this.apiService.deleteMultipleFilesById(deleteIds), // result[1]
         ]).subscribe({
           next: (result) => {
+            this.processing = false;
             this.searchFiles();
           },
           error: (e) => {
@@ -246,6 +251,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
     } else if (deleteIds.length > 0) {
       this.apiService.deleteMultipleFilesById(deleteIds).subscribe({
         next: (delResult) => {
+          this.processing = false;
           this.searchFiles();
         },
         error: (e) => {
@@ -255,6 +261,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
     } else if (archiveIds.length > 0) {
       this.apiService.archiveMultipleFilesById(archiveIds).subscribe({
         next: (delResult) => {
+          this.processing = false;
           this.searchFiles();
         },
         error: (e) => {

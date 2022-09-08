@@ -1,18 +1,18 @@
-import { Subscription } from 'rxjs';
-import { trigger, transition, animate, keyframes } from '@angular/animations';
-import { Component, OnInit,} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { UserFiles } from 'src/app/entities/archive-delete-filter';
-import { HydrusFile } from 'src/app/entities/hydrus-file';
-import { InjectorService } from 'src/app/services/injector.service';
-import { DialogMessageUtils } from 'src/app/utilities/dialog-message-util';
-import { EnumUtil } from 'src/app/utilities/enum-util';
+import { Subscription } from "rxjs";
+import { trigger, transition, animate, keyframes } from "@angular/animations";
+import { Component, HostListener, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { UserFiles } from "src/app/entities/archive-delete-filter";
+import { HydrusFile } from "src/app/entities/hydrus-file";
+import { InjectorService } from "src/app/services/injector.service";
+import { DialogMessageUtils } from "src/app/utilities/dialog-message-util";
+import { EnumUtil } from "src/app/utilities/enum-util";
 import * as kf from "./keyframes";
 
 @Component({
-  selector: 'app-overlay-archive-delete-filter',
-  templateUrl: './overlay-archive-delete-filter.component.html',
-  styleUrls: ['./overlay-archive-delete-filter.component.scss'],
+  selector: "app-overlay-archive-delete-filter",
+  templateUrl: "./overlay-archive-delete-filter.component.html",
+  styleUrls: ["./overlay-archive-delete-filter.component.scss"],
   animations: [
     trigger("cardAnimator", [
       transition("* => slideOutLeft", animate(855, keyframes(kf.slideOutLeft))),
@@ -35,10 +35,7 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
   dialogUtils: DialogMessageUtils;
   subscriptions: Subscription[];
 
-  constructor(
-    private injectorService: InjectorService,
-    dialog: MatDialog
-  ) {
+  constructor(private injectorService: InjectorService, dialog: MatDialog) {
     this.animationState = "";
     this.fileChanges = new UserFiles();
     this.dialogUtils = new DialogMessageUtils(dialog);
@@ -48,24 +45,25 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.subscriptions.push(this.injectorService.fullscreenOverlaySourceFound$.subscribe(info => {
-      this.hydrusFiles = info.files;
-      this.currentFileIndex = info.currentIndex;
-      this.currentFile = this.hydrusFiles[this.currentFileIndex];
-      if (info.currentFileChanges) {
-        this.fileChanges = info.currentFileChanges;
-      }
-    }));
+    this.subscriptions.push(
+      this.injectorService.fullscreenOverlaySourceFound$.subscribe((info) => {
+        this.hydrusFiles = info.files;
+        this.currentFileIndex = info.currentIndex;
+        this.currentFile = this.hydrusFiles[this.currentFileIndex];
+        if (info.currentFileChanges) {
+          this.fileChanges = info.currentFileChanges;
+        }
+      })
+    );
   }
   onSwipe(e: any): void {
-
     if (e.direction === this.enumUtil.swipeDirection.DIRECTION_LEFT) {
       // right - archive
       this.sendToArchive();
@@ -74,7 +72,7 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
       this.sendToDelete();
     } else if (e.direction === this.enumUtil.swipeDirection.DIRECTION_UP) {
       // down - previous
-      this.sendToPrevious();      
+      this.sendToPrevious();
     } else if (e.direction === this.enumUtil.swipeDirection.DIRECTION_DOWN) {
       // up - skip
       this.sendToSkip();
@@ -157,15 +155,26 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
 
       dialogConfirmRef.afterClosed().subscribe((confirmation) => {
         if (confirmation) {
-          this.injectorService.closeFullscreenOverlay({files: this.fileChanges, makeChanges:true, continueFilter:false});
+          this.injectorService.closeFullscreenOverlay({
+            files: this.fileChanges,
+            makeChanges: true,
+            continueFilter: false,
+          });
         } else {
-          this.injectorService.closeFullscreenOverlay({files: this.fileChanges, makeChanges:false, continueFilter:false});
+          this.injectorService.closeFullscreenOverlay({
+            files: this.fileChanges,
+            makeChanges: false,
+            continueFilter: false,
+          });
         }
       });
     } else {
-      this.injectorService.closeFullscreenOverlay({files: this.fileChanges, makeChanges:false, continueFilter:false});
+      this.injectorService.closeFullscreenOverlay({
+        files: this.fileChanges,
+        makeChanges: false,
+        continueFilter: false,
+      });
     }
-    
   }
 
   sendSelectedFiles(): void {
@@ -177,12 +186,24 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
     );
 
     dialogConfirmRef.afterClosed().subscribe((confirmation) => {
-      if (confirmation === 'continue') {
-        this.injectorService.closeFullscreenOverlay({files: this.fileChanges, makeChanges:true, continueFilter:true});
-      } else if (confirmation === 'commit') {
-        this.injectorService.closeFullscreenOverlay({files: this.fileChanges, makeChanges:true, continueFilter:false});
+      if (confirmation === "continue") {
+        this.injectorService.closeFullscreenOverlay({
+          files: this.fileChanges,
+          makeChanges: true,
+          continueFilter: true,
+        });
+      } else if (confirmation === "commit") {
+        this.injectorService.closeFullscreenOverlay({
+          files: this.fileChanges,
+          makeChanges: true,
+          continueFilter: false,
+        });
       } else {
-        this.injectorService.closeFullscreenOverlay({files: this.fileChanges, makeChanges:false, continueFilter:false});
+        this.injectorService.closeFullscreenOverlay({
+          files: this.fileChanges,
+          makeChanges: false,
+          continueFilter: false,
+        });
       }
     });
   }
@@ -198,10 +219,25 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
   }
 
   imageType(mime: string): boolean {
-    if (mime.includes('video')) {
-      return false
+    if (mime.includes("video")) {
+      return false;
     }
     return true;
+  }
 
+  @HostListener("window:keydown", ["$event"])
+  handleKeyDown(event: KeyboardEvent) {
+    event.preventDefault();
+    if (event.key === "ArrowDown") {
+      this.sendToPrevious();
+    } else if (event.key === "ArrowUp") {
+      this.sendToSkip();
+    } else if (event.key === "ArrowRight") {
+      this.sendToArchive();
+    } else if (event.key === "ArrowLeft") {
+      this.sendToDelete();
+    } else if (event.key === "Escape") {
+      this.closeFullscreen();
+    }
   }
 }

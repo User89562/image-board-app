@@ -1,3 +1,7 @@
+# v2.2a
+- added keyboard navigation to filter fullscreen overlay
+- added processing & loading to after filter is complete
+
 # v2.1a
 - adjust file search layout for mobile
 

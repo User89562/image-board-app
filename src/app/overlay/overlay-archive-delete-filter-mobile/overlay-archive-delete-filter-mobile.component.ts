@@ -15,10 +15,10 @@ import * as kf from "./keyframes";
   styleUrls: ['./overlay-archive-delete-filter-mobile.component.scss'],
   animations: [
     trigger("cardAnimator", [
-      transition("* => slideOutLeft", animate(855, keyframes(kf.slideOutLeft))),
+      transition("* => slideOutLeft", animate(655, keyframes(kf.slideOutLeft))),
       transition(
         "* => slideOutRight",
-        animate(855, keyframes(kf.slideOutRight))
+        animate(655, keyframes(kf.slideOutRight))
       ),
     ]),
   ],
