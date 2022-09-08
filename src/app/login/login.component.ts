@@ -98,9 +98,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       "app-logo11.png",
       "app-logo12.png",
       "app-logo13.png",
-      "app-logo14.png",
-      "app-logo15.png",
-      "app-logo16.png",
     ];
     let index = Math.floor(Math.random() * (images.length - 1 - 0 + 1) + 0);
 
