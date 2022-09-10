@@ -49,7 +49,10 @@
       </div>
 
       <button mat-flat-button (click)="fullscreenView(file)" color="accent">
-        <mat-icon>zoom_in</mat-icon>
+        <mat-icon>zoom_in</mat-icon> 
+        <span *ngIf="isPlayable(file)"> / </span>
+        <mat-icon *ngIf="isPlayable(file)">play_arrow</mat-icon>
+        
       </button>
     </div>
   </div>

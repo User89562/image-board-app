@@ -1,5 +1,6 @@
 import { HydrusFile } from './../entities/hydrus-file';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { E } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-image-display',
@@ -12,11 +13,21 @@ export class ImageDisplayComponent implements OnInit {
   @Input() heightNum?: string;
   @Input() widthNum?: string;
   @Input() thumbnail!: boolean;
+  fileType: string;
 
   constructor() { 
+    this.fileType = '';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.hydrusFile.mime.includes('video')){
+      this.fileType = 'video';
+    } else if (this.hydrusFile.mime.includes('gif')){
+      this.fileType = 'gif';
+    } else if (this.hydrusFile.mime.includes('image')){
+      this.fileType = 'image';
+    }
+  }
 
   determineFileTitle(): string {
     let series = '';
@@ -27,6 +38,6 @@ export class ImageDisplayComponent implements OnInit {
       } 
     });
     return (series).trimEnd().slice(0, -1);
-  }
+  }  
 
 }

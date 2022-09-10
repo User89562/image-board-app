@@ -28,7 +28,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
   loading = true;
   enumUtil = EnumUtil;
   mobileCurrentImage!: HydrusFile;
-  fullscreen = false;
   currentIndex: number;
   overlayUtil: OverlayUtil;
   continueFilter: boolean;
@@ -60,7 +59,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
         this.sortDir = false;
       }
       this.sortType = this.router.getCurrentNavigation()?.extras.state?.["sortType"];
-      this.fullscreen = this.router.getCurrentNavigation()?.extras.state?.["fullscreen"];
 
       this.setSearchParams();
       this.saveSearchParams();
@@ -87,9 +85,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
 
             if (this.searchParams.get("sortDir") === "false") {
               this.sortDir = false;
-            }
-            if (this.searchParams.get("fullscreen") === "true") {
-              this.fullscreen = true;
             }
           } 
         }
@@ -142,7 +137,7 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
   setSearchParams(): void {
     let searchUrl = `?tags=${this.searchTags.flat()}&sortType=${
       this.sortType
-    }&sortDir=${this.sortDir}&fullscreen=${this.fullscreen}`;
+    }&sortDir=${this.sortDir}`;
     this.searchParams = new URLSearchParams(searchUrl);
   }
 
@@ -193,7 +188,8 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
         this.injectorService.announceFullscreenOverlay({
           files: this.hydrusFiles,
           currentIndex: this.hydrusFiles.indexOf(file),
-          currentFileChanges: this.fileChanges
+          currentFileChanges: this.fileChanges,
+          dialogOnClose: false
         }),
       300
     );
@@ -313,5 +309,12 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
         },
       });
     }
+  }
+
+  isPlayable(file: HydrusFile): boolean {
+    if (file.mime.includes('video') || file.mime.includes('gif')){
+      return true;
+    }
+    return false;
   }
 }

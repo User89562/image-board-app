@@ -12,7 +12,7 @@ export class InjectorService {
   // Observable  sources
   private processingSource = new EventEmitter<Map<string, string>>();
   private overlaySource = new Subject<string>();
-  private fullscreenOverlaySource = new Subject<{files: HydrusFile[], currentIndex: number, currentFileChanges?: UserFiles}>();
+  private fullscreenOverlaySource = new Subject<{files: HydrusFile[], currentIndex: number, currentFileChanges?: UserFiles, dialogOnClose?: boolean}>();
   private sendFilesSource = new Subject<{files: UserFiles, makeChanges: boolean, continueFilter: boolean}>();
 
 
@@ -27,7 +27,7 @@ export class InjectorService {
     this.processingSource.emit(message);
   }
 
-  announceFullscreenOverlay(files: {files: HydrusFile[], currentIndex: number, currentFileChanges?: UserFiles}): void {
+  announceFullscreenOverlay(files: {files: HydrusFile[], currentIndex: number, currentFileChanges?: UserFiles, dialogOnClose?: boolean}): void {
     this.fullscreenOverlaySource.next(files);
   }
 

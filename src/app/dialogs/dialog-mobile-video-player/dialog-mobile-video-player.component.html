@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="title">HTML5 Player</h1>
+<mat-divider id="dark-mode-divider"></mat-divider>
+<div mat-dialog-content>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <video
+    [hidden]="loading"
+    class="current-video"
+    (loadeddata)="onLoad()"
+    controls
+    muted
+  >
+    <source [src]="data.file_url" [type]="data.mime" />
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<mat-divider id="dark-mode-divider"></mat-divider>
+<div mat-dialog-actions class="dialog-action">
+  <button mat-raised-button color="warn" (click)="onClick()">Ok</button>
+</div>

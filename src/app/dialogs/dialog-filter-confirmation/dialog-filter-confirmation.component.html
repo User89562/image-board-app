@@ -1,14 +1,48 @@
-<h1 mat-dialog-title class="title">{{data.title}}</h1>
+<h1 mat-dialog-title class="title">{{ data.title }}</h1>
 <mat-divider *ngIf="data.messageArray.length > 0"></mat-divider>
-<div mat-dialog-content *ngIf="data.messageArray.length > 0" class="dialog-content">
+<div
+  mat-dialog-content
+  *ngIf="data.messageArray.length > 0"
+  class="dialog-content"
+>
   <div>
     <mat-list *ngFor="let m of data.messageArray">
-      <mat-list-item> {{m}}</mat-list-item>
+      <mat-list-item> {{ m }}</mat-list-item>
     </mat-list>
   </div>
 </div>
-<div mat-dialog-actions class="dialog-action" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="end" fxLayoutGap.lt-md="7px">  
-  <button mat-raised-button class="cancel-button" (click)="onClick()">Cancel</button>
-  <button mat-raised-button class="yes-button" [mat-dialog-close]="'commit'" cdkFocusInitial>Commit</button>
-  <button mat-raised-button class="continue-button" color="primary" [mat-dialog-close]="'continue'" cdkFocusInitial>Commit & Continue</button>
+<div
+  mat-dialog-actions
+  class="dialog-action"
+  fxLayout.lt-md="column"
+  fxLayoutAlign.gt-sm="end"
+  fxLayoutGap.lt-md="15px"
+>
+  <button
+    mat-raised-button
+    ngClass.lt-md="cancel-button-mobile"
+    ngClass.gt-sm="cancel-button"
+    (click)="onClick()"
+  >
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    ngClass.lt-md="yes-button-mobile"
+    ngClass.gt-sm="yes-button"
+    [mat-dialog-close]="'commit'"
+    cdkFocusInitial
+  >
+    Commit
+  </button>
+  <button
+    mat-raised-button
+    ngClass.lt-md="continue-button-mobile"
+    ngClass.gt-sm="continue-button"
+    color="primary"
+    [mat-dialog-close]="'continue'"
+    cdkFocusInitial
+  >
+    Commit & Continue
+  </button>
 </div>

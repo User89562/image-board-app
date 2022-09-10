@@ -27,6 +27,7 @@ export class OverlayUtil {
         config.positionStrategy = this.overlay.position()
             .global().centerHorizontally().centerVertically();
         config.backdropClass = 'backdrop-class';
+        config.scrollStrategy = this.overlay.scrollStrategies.block();
     
         config.hasBackdrop = true;
         this.overlayRef = this.overlay.create(config);
@@ -40,6 +41,7 @@ export class OverlayUtil {
         config.positionStrategy = this.overlay.position()
             .global().centerHorizontally().centerVertically();
         config.backdropClass = 'backdrop-class';
+        config.scrollStrategy = this.overlay.scrollStrategies.block();
     
         config.hasBackdrop = true;
         this.overlayRef = this.overlay.create(config);

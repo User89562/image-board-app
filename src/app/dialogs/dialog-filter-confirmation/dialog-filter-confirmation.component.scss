@@ -1,41 +1,45 @@
 @import "src/app/utilities/_variables";
 
 .mat-dialog-container {
-    width: fit-content;
-  }
-  .mat-list-item {
-    height: max-content !important;
-  }
-  .mat-divider {
-    padding: 7px;
-  }
-  .title {
-      color: #b085f5;
-  }
-  
-  .dialog-action {
-    margin-top: 35px !important;
-    border-top: 1px solid gray;
-  }
+  width: fit-content;
+}
+.mat-list-item {
+  height: max-content !important;
+}
+.mat-divider {
+  padding: 7px;
+}
+.title {
+  color: #b085f5;
+}
 
-  .dialog-content {
-      margin-top: 15px;
-  }
-  .yes-button, .cancel-button {
-    font-size: $font-size - 7px;
-    width: 100px;
+.dialog-action {
+  margin-top: 35px !important;
+  border-top: 1px solid gray;
+}
 
-  }
+.dialog-content {
+  margin-top: 15px;
+}
+.yes-button,
+.cancel-button {
+  font-size: $font-size - 7px;
+  width: 100px;
+}
 
-  .continue-button {
-    color: white;
-  }
+.continue-button {
+  color: white;
+  font-size: $font-size - 7px;
+}
 
-  .yes-button {
-      background-color: #a00037 !important;
-  }
+.yes-button, .yes-button-mobile {
+  background-color: #a00037 !important;
+}
 
+.cancel-button, .cancel-button-mobile {
+  background-color: #4b636e !important;
+}
 
-  .cancel-button {
-      background-color: #4b636e !important;
-  }
+.cancel-button-mobile, .yes-button-mobile, .continue-button-mobile {
+  width: 155px;
+}

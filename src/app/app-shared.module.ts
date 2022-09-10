@@ -1,3 +1,4 @@
+import { DialogMobileVideoPlayerComponent } from './dialogs/dialog-mobile-video-player/dialog-mobile-video-player.component';
 import { OverlayArchiveDeleteFilterMobileComponent } from './overlay/overlay-archive-delete-filter-mobile/overlay-archive-delete-filter-mobile.component';
 import { DialogFilterConfirmationComponent } from './dialogs/dialog-filter-confirmation/dialog-filter-confirmation.component';
 import { OverlayArchiveDeleteFilterComponent } from './overlay/overlay-archive-delete-filter/overlay-archive-delete-filter.component';
@@ -22,6 +23,7 @@ import { OverlayComponent } from './overlay/overlay.component';
     DialogMessageBoxComponent,
     DialogConfirmationBoxComponent,
     DialogFilterConfirmationComponent,
+    DialogMobileVideoPlayerComponent,
     ActionListDialogComponent,
     OverlayComponent,
     OverlayArchiveDeleteFilterComponent,
@@ -43,6 +45,7 @@ import { OverlayComponent } from './overlay/overlay.component';
     DialogMessageBoxComponent,
     DialogConfirmationBoxComponent,
     DialogFilterConfirmationComponent,
+    DialogMobileVideoPlayerComponent,
     ActionListDialogComponent,
     OverlayComponent,
     OverlayArchiveDeleteFilterComponent,

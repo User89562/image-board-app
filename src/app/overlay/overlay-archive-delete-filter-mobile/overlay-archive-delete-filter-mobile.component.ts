@@ -79,6 +79,7 @@ export class OverlayArchiveDeleteFilterMobileComponent implements OnInit {
   }
 
   onLoad(): void {
+    console.log('df');
     this.loading = false;
   }
 
@@ -200,5 +201,9 @@ export class OverlayArchiveDeleteFilterMobileComponent implements OnInit {
     }
     return true;
 
+  }
+
+  openVideoPlayer(file: HydrusFile): void {
+    this.dialogUtils.displayVideoPlayer(file);
   }
 }

@@ -20,15 +20,30 @@
       <mat-icon *ngIf="!hydrusFile.is_inbox"> archive</mat-icon>
       <mat-icon *ngIf="hydrusFile.is_trashed"> delete</mat-icon>
     </div>
-    <img
-      *ngIf="thumbnail; else hdImage"
-      [src]="hydrusFile.thumbnail_url"
-      class="image-thumbnail"
+    <div
+      *ngIf="
+        thumbnail || fileType === 'video' || fileType === 'gif';
+        else hdImage
+      "
       [ngStyle]="{
+        'background': 'url('+ hydrusFile.thumbnail_url+') no-repeat center center',
         'height.px': heightNum,
-        'width.px': widthNum ? widthNum : heightNum
+        'width.px': widthNum ? widthNum : heightNum,
+        'background-size': 'contain'
+
       }"
-    />
+      fxLayoutAlign="center center"
+    >
+      <img
+        *ngIf="fileType === 'video' || fileType === 'gif'"
+        src="assets/images/video-play-button.png"
+        class="video-play-button"
+        [ngStyle]="{
+          'width.px': widthNum ? widthNum : heightNum
+        }"
+      />
+    </div>
+
     <ng-template #hdImage>
       <img
         [src]="hydrusFile.file_url"

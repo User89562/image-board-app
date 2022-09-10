@@ -34,6 +34,7 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
   animationState: string;
   dialogUtils: DialogMessageUtils;
   subscriptions: Subscription[];
+  dialogOnClose = true;
 
   constructor(private injectorService: InjectorService, dialog: MatDialog) {
     this.animationState = "";
@@ -59,6 +60,9 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
         this.currentFile = this.hydrusFiles[this.currentFileIndex];
         if (info.currentFileChanges) {
           this.fileChanges = info.currentFileChanges;
+        }
+        if (info.dialogOnClose === false) {
+          this.dialogOnClose = false;
         }
       })
     );
@@ -143,10 +147,7 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
   }
 
   closeFullscreen(): void {
-    if (
-      this.fileChanges.archive.length > 0 ||
-      this.fileChanges.delete.length > 0
-    ) {
+    if ((this.fileChanges.archive.length > 0 || this.fileChanges.delete.length > 0) && this.dialogOnClose) {
       //dialog to save current changes or cancel
       const dialogConfirmRef = this.dialogUtils.displayConfirmation(
         "Would you like to commit current changes?",

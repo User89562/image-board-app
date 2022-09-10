@@ -1,3 +1,5 @@
+import { DialogMobileVideoPlayerComponent } from './../dialogs/dialog-mobile-video-player/dialog-mobile-video-player.component';
+import { HydrusFile } from 'src/app/entities/hydrus-file';
 import { DialogFilterConfirmationComponent } from './../dialogs/dialog-filter-confirmation/dialog-filter-confirmation.component';
 
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
@@ -84,6 +86,14 @@ export class DialogMessageUtils {
   displayList(list: ListModuleData) {
     return this.dialog.open(ActionListDialogComponent, {
       data: list,
+      autoFocus: false,
+    });
+  }
+
+
+  displayVideoPlayer(file: HydrusFile) {
+    return this.dialog.open(DialogMobileVideoPlayerComponent, {
+      data: file,
       autoFocus: false,
     });
   }
