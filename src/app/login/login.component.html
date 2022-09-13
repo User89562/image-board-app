@@ -2,7 +2,8 @@
     <div fxLayout="column" fxLayoutAlign="center center" class="top-container">
      
       <img [src]="logo" class="app-logo">
-      <h1>{{title}}</h1>
+      <h1 class="login-title">{{title}}</h1>
+      <h3 class="login-subtitle">{{subtitle}}</h3>
     </div>
     
     <div fxLayoutAlign="center center" *ngIf="loggingIn" fxLayout="column">

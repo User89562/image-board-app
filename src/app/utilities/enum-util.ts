@@ -16,8 +16,6 @@ export enum SWIPE_DIRECTION{
   DIRECTION_DOWN=16
 }
 
-
-
 export class EnumUtil {
   constructor() {}
 

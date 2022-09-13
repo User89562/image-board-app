@@ -1,40 +1,74 @@
 .file-filter-container {
-    margin: 8px;
+  margin: 8px;
+  margin-top: -25px;
 }
 
 .color-block {
-    width: 30px;
-    height: 5px;
+  width: 30px;
+  height: 5px;
 }
 
 #selected-color {
-    background-color: #00e676;
+  background-color: #00e676;
 }
 
 #skip-color {
-    background-color: #007ac1;
+  background-color: #007ac1;
 }
 
 #delete-color {
-    background-color: transparent;
-    border: 1px solid black;
+  background-color: transparent;
+  border: 1px solid whitesmoke;
 }
 
 .mouse-button-icons {
-    width: auto;
-    height: 20px;
-    position: relative;
-    top: -5px;
+  width: auto;
+  height: 20px;
+  position: relative;
+  top: -5px;
 }
 
 .submit-button {
-    width: 125px;
-    color: whitesmoke;
-    text-shadow: 0px 0px 1px black;
+  width: 185px;
+  color: whitesmoke;
+  text-shadow: 0px 0px 1px black;
 }
 
 .file-statuses {
-    margin-left:auto;
-    margin-right: 25px;
-    margin-bottom: -8px;
+  margin-left: auto;
+  margin-right: 25px;
+  margin-bottom: -8px;
 }
+
+.processing-text {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 25px;
+}
+
+.loading-container {
+  margin-top: 15px;
+}
+
+.thumbnail-form-field {
+  text-align: center;
+  width: 125px;
+  font-size: 15px;
+}
+
+.legend-container {
+  margin-top: -63px;
+  margin-bottom: 10px;
+}
+
+.change-view-button {
+  position: relative;
+  left: 81%;
+  top: 44px;
+  z-index: 1;
+  width: 73px;
+  border-top-left-radius: 44px;
+  border-bottom-left-radius: 44px;
+}
+
+

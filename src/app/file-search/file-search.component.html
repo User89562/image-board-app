@@ -1,14 +1,24 @@
 <div class="main-container">
   <div fxLayout="column">
-    <app-search-tag-input
-      [initalTags]="initalTags"
-      [initalSortDir]="sortDir"
-      [initalSortType]="sortType"
-      (tags)="tagsChanged($event)"
-      (sortType)="sortTypeChanged($event)"
-      (sortDir)="sortDirChanged($event)"
-      class="tag-input"
-    ></app-search-tag-input>
+    <div fxLayout="row">
+      <app-search-tag-input
+        [initalTags]="initalTags"
+        [initalSortDir]="sortDir"
+        [initalSortType]="sortType"
+        (tags)="tagsChanged($event)"
+        (sortType)="sortTypeChanged($event)"
+        (sortDir)="sortDirChanged($event)"
+        class="tag-input"
+      ></app-search-tag-input>
+      <button
+        mat-flat-button
+        color="accent"
+        class="search-play-button"
+        (click)="changeSearchStatus()"
+      >
+        <mat-icon>{{ startSearch ? "play_arrow" : "pause" }}</mat-icon>
+      </button>
+    </div>
 
     <mat-divider id="dark-mode-divider" fxHide fxShow.lt-md></mat-divider>
 
@@ -54,10 +64,13 @@
       <div *ngFor="let file of hydrusFiles" class="files-container">
         <app-image-display
           [hydrusFile]="file"
-          [widthNum]="'265'"
-          [heightNum]="'230'"
+          [widthNum]="265"
+          [heightNum]="230"
           [thumbnail]="true"
         ></app-image-display>
+        <button mat-flat-button (click)="downloadFile(file)" class="download-button" type="button">
+          <mat-icon>download</mat-icon>
+        </button>
       </div>
     </div>
   </div>

@@ -37,6 +37,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import {MatBadgeModule} from '@angular/material/badge';
 import {ClipboardModule} from '@angular/cdk/clipboard'; 
+import {ScrollingModule} from '@angular/cdk/scrolling'; 
 
 
 // changes the default values of tooltips for the whole project
@@ -87,6 +88,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     MatBadgeModule,
     MatSortModule,
     ClipboardModule,
+    ScrollingModule,
   ],
   providers: [
     {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults},

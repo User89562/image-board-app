@@ -1,9 +1,17 @@
+@import "/src/app/utilities/variables";
+
+
 .archive-delete-disabled {
   color: red;
 }
 
 .archive-delete-enabled {
   color: green;
+}
+
+.tag-input {
+  width: 95%;
+  display: block;
 }
 
 .files-container {
@@ -42,4 +50,24 @@
 
 .loading-container {
   margin-top: 15px;
+}
+
+.search-play-button {
+  height: 55px;
+  margin-left: 10px;
+  .mat-icon {
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    font-size: 35px;
+  }
+}
+
+.download-button {
+  width: 100%;
+  background-color: #c5cae959;
+}
+
+.mat-button-toggle-checked {
+  background-color:#087f23;
 }

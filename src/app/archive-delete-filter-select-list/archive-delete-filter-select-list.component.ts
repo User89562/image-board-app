@@ -11,6 +11,7 @@ import { InjectorService } from "../services/injector.service";
 import { EnumUtil } from "../utilities/enum-util";
 import { Overlay } from "@angular/cdk/overlay";
 import { OverlayUtil } from "../utilities/overlay-util";
+import { LocalStorageUtil } from "../utilities/local-storage-util";
 
 @Component({
   selector: "app-archive-delete-filter-select-list",
@@ -31,6 +32,11 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
   currentIndex: number;
   overlayUtil: OverlayUtil;
   continueFilter: boolean;
+  processing: boolean = false;
+  localStorageUtil = LocalStorageUtil;
+  thumbnailHeight: number;
+  thumbnailWidth: number;
+  continue: boolean;
   
 
   constructor(
@@ -49,6 +55,9 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     this.currentIndex = 0;
     this.overlayUtil = new OverlayUtil(viewContainerRef, overlay);
     this.continueFilter = false;
+    this.thumbnailWidth = 365;
+    this.thumbnailHeight = 330;
+    this.continue = true;
 
     if (this.router.getCurrentNavigation()?.extras.state) {
       this.hydrusFiles =
@@ -97,41 +106,55 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
+
   }
 
   ngOnInit(): void {
     if (this.hydrusFiles.length === 0) {
       this.searchFiles();
     }
-  //  this.injectorService.announceFullscreen("disabled");
+    let dim = this.localStorageUtil.retrieveThumbnailDimensions();
+    if (dim) {
+      let parsed =JSON.parse(dim);
+      this.thumbnailHeight =parsed.height;
+      this.thumbnailWidth = parsed.width;
+    } else {
+      this.localStorageUtil.addToStorage(this.thumbnailHeight, this.thumbnailWidth);
+    }
   }
 
   searchFiles(): void {
-    this.loading = true;
-    this.hydrusFiles = [];
-    this.subscriptions.push(
-      this.apiService
-        .getFilesSearch(
-          this.searchTags,
-          this.sortType.toString(),
-          this.sortDir.toString()
-        )
-        .subscribe({
-          next: (searchResult) => {
-            this.fileService
-              .getThumbnailAndMetadata(searchResult.file_ids)
-              .subscribe({
-                next: (files) => {
-                  this.hydrusFiles = files;
-                  this.mobileCurrentImage = this.hydrusFiles[0];
-                  this.loading = false;
-                },
-              });
-          },
-        })
-    );
-    this.setSearchParams();
-    this.saveSearchParams();
+    if (this.continue) {
+      this.processing = false;
+      this.loading = true;
+      this.hydrusFiles = [];
+      this.subscriptions.push(
+        this.apiService
+          .getFilesSearch(
+            this.searchTags,
+            this.sortType.toString(),
+            this.sortDir.toString()
+          )
+          .subscribe({
+            next: (searchResult) => {
+              this.fileService
+                .getThumbnailAndMetadata(searchResult.file_ids)
+                .subscribe({
+                  next: (files) => {
+                    this.hydrusFiles = files;
+                    this.mobileCurrentImage = this.hydrusFiles[0];
+                    this.loading = false;
+                  },
+                });
+            },
+          })
+      );
+      this.setSearchParams();
+      this.saveSearchParams();
+    } else {
+      this.router.navigate(['/file-search']);
+    }
+
   }
 
   setSearchParams(): void {
@@ -271,6 +294,8 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
 
 
   updateFileStatuses(userFiles: UserFiles): void {
+    this.processing = true;
+    this.loading = true;
     let archiveIds = userFiles.archive.map((a) => a.file_id);
     let deleteIds = userFiles.delete.map((a) => a.file_id);
 
@@ -316,5 +341,13 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
       return true;
     }
     return false;
+  }
+
+  updateHeight(e: any): void {
+    this.localStorageUtil.addToStorage(e, this.thumbnailWidth);
+  }
+
+  updateWidth(e: any): void {
+    this.localStorageUtil.addToStorage(this.thumbnailHeight, e);
   }
 }

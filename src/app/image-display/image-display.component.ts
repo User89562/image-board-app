@@ -10,13 +10,15 @@ import { E } from '@angular/cdk/keycodes';
 //TODO: border color for delete - icons for inbox, archive and trash
 export class ImageDisplayComponent implements OnInit {
   @Input() hydrusFile!: HydrusFile;
-  @Input() heightNum?: string;
-  @Input() widthNum?: string;
+  @Input() heightNum: number;
+  @Input() widthNum: number;
   @Input() thumbnail!: boolean;
   fileType: string;
 
   constructor() { 
     this.fileType = '';
+    this.heightNum = 0;
+    this.widthNum = 0;
   }
 
   ngOnInit(): void {
@@ -39,5 +41,12 @@ export class ImageDisplayComponent implements OnInit {
     });
     return (series).trimEnd().slice(0, -1);
   }  
+
+  isPlayable(file: HydrusFile): boolean {
+    if (file.mime.includes('video') || file.mime.includes('gif')){
+      return true;
+    }
+    return false;
+  }
 
 }

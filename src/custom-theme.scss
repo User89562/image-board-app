@@ -1,8 +1,11 @@
 @use "@angular/material" as mat;
 
-//$font-family: 'Kalam',
 $main-typography: mat.define-typography-config(
-    $font-family: 'Roboto',
+  $font-family: Carter One,
+  /* 
+  // $font-family: Carter One, --
+  // $font-family: Permanent Marker, --
+  $font-family: 'Roboto',*/
 );
 
 @include mat.core($main-typography);
@@ -21,8 +24,8 @@ $light-theme: mat.define-light-theme(
 );
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$indigo-palette, A100);
-$dark-accent: mat.define-palette(mat.$blue-gray-palette);
+$dark-primary: mat.define-palette(mat.$deep-purple-palette, 800);
+$dark-accent: mat.define-palette(mat.$indigo-palette, 400);
 $dark-theme: mat.define-dark-theme(
   (
     color: (

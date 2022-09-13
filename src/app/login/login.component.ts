@@ -22,14 +22,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
   hide = true;
   loggingIn = false;
   loginUtil = LoginUtil;
-  title = environment.app_name;
-  accessCode!: string;
+  title = 'Venus\' Arch';
+  subtitle = 'Hydrus web archive/delete filter';
+  logo: string;
   loginForm = this.fb.group({
     apiUrl: ["", Validators.required],
     apiKey: ["", Validators.required],
   });
   loginError: string;
-  logo: string;
+
 
   constructor(
     private router: Router,
@@ -64,8 +65,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         },
       });
     }
-
-    // check if logged in
   }
 
   login() {
@@ -98,6 +97,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
       "app-logo11.png",
       "app-logo12.png",
       "app-logo13.png",
+      "app-logo14.png",
+      "app-logo15.png",
+      "app-logo16.png",
+      "app-logo17.png",
+      "app-logo18.png",
+      "app-logo19.png",
+      "app-logo20.png",
+      "app-logo21.png",
+      "app-logo22.png",
+      "app-logo23.png",
+      "app-logo24.png",
+      "app-logo25.png",
+      "app-logo26.png",
+      
     ];
     let index = Math.floor(Math.random() * (images.length - 1 - 0 + 1) + 0);
 
@@ -115,7 +128,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         },
         error: (e) => {
           this.loginError =
-            "Unable to login - Incorrect access or url doesn't exisit";
+            "Unable to login - Incorrect access, url doesn't exist, or service isn't up";
         },
       });
   }

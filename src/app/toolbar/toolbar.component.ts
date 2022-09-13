@@ -1,3 +1,5 @@
+import { ApiService } from './../services/api.service';
+import { Boned } from './../entities/manage-db';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -16,19 +18,21 @@ export class ToolbarComponent implements OnInit {
   panelLinks = [
     {path: '', label: ''},
   ];
-  
+  dbStats!: Boned;  
   loading = true;
-  dialogUtils: DialogMessageUtils;
   lastUpdated = new Date();
   loginUtil = LoginUtil;
   userAvatar!: string;
 
-  constructor(dialog: MatDialog, private router: Router) {
-    this.dialogUtils = new DialogMessageUtils(dialog);
+  constructor( private router: Router, private apiService: ApiService) {
    }
 
   ngOnInit(): void {
-      
+    this.apiService.howBoned().subscribe({
+      next: (stats) => {
+        this.dbStats = stats;
+      }
+    })      
   }
 
   logoutUser(): void {

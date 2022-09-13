@@ -36,6 +36,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
   filterStyle: string;
   recentlyChangedFileIds: number[];
   continueFilter: boolean;
+  startSearch = true;
 
   constructor(
     titleService: Title,
@@ -122,33 +123,36 @@ export class FileSearchComponent implements OnInit, OnDestroy {
   }
 
   searchFiles(): void {
-    this.loading = true;
-    this.hydrusFiles = [];
+    if (this.startSearch) {
+      this.loading = true;
+      this.hydrusFiles = [];
 
-    this.subscriptions.push(
-      this.fileService
-        .getFileWithMetadataFromSearch(
-          this.searchTags,
-          this.sortType.toString(),
-          this.sortDir.toString()
-        )
-        .subscribe({
-          next: (files) => {
-            this.hydrusFiles = files;
-            this.loading = false;
-            if (this.continueFilter) {
-              setTimeout(
-                () =>
-                  this.injectorService.announceFullscreenOverlay({
-                    files: this.hydrusFiles,
-                    currentIndex: 0,
-                  }),
-                300
-              );
-            }
-          },
-        })
-    );
+      this.subscriptions.push(
+        this.fileService
+          .getFileWithMetadataFromSearch(
+            this.searchTags,
+            this.sortType.toString(),
+            this.sortDir.toString()
+          )
+          .subscribe({
+            next: (files) => {
+              this.hydrusFiles = files;
+              this.loading = false;
+              if (this.continueFilter) {
+                setTimeout(
+                  () =>
+                    this.injectorService.announceFullscreenOverlay({
+                      files: this.hydrusFiles,
+                      currentIndex: 0,
+                    }),
+                  300
+                );
+              }
+            },
+          })
+      );
+    }
+
     this.setSearchParams();
     this.saveSearchParams();
   }
@@ -271,6 +275,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  // not currently used
   viewRecentlyChanged(): void {
     console.log(this.recentlyChangedFileIds);
   }
@@ -280,5 +285,33 @@ export class FileSearchComponent implements OnInit, OnDestroy {
       return false;
     }
     return true;
+  }
+
+  changeSearchStatus(): void {
+    this.startSearch = !this.startSearch;
+    if (this.startSearch) {
+      this.searchFiles();
+    }
+  }
+
+  downloadFile(file: HydrusFile): void {
+    this.fileService.downloadFile(file).subscribe({
+      next: (fileBlob) => {
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        let url = window.URL.createObjectURL(fileBlob);
+        a.href = url;
+        let fileName = file.hash;
+        //filename + file extension from mime
+        a.download = `${fileName}.${file.mime.substring(
+          file.mime.indexOf("\\") + 1
+        )}`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+
+        window.open(url);
+      },
+    });
   }
 }

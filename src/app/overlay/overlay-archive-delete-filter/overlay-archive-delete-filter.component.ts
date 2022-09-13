@@ -1,6 +1,7 @@
+import { FileService } from './../../services/file.service';
 import { Subscription } from "rxjs";
 import { trigger, transition, animate, keyframes } from "@angular/animations";
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { UserFiles } from "src/app/entities/archive-delete-filter";
 import { HydrusFile } from "src/app/entities/hydrus-file";
@@ -36,7 +37,9 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
   subscriptions: Subscription[];
   dialogOnClose = true;
 
-  constructor(private injectorService: InjectorService, dialog: MatDialog) {
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
+
+  constructor(private injectorService: InjectorService, dialog: MatDialog, private fileService: FileService) {
     this.animationState = "";
     this.fileChanges = new UserFiles();
     this.dialogUtils = new DialogMessageUtils(dialog);
@@ -74,13 +77,13 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
     } else if (e.direction === this.enumUtil.swipeDirection.DIRECTION_RIGHT) {
       // left - delete
       this.sendToDelete();
-    } else if (e.direction === this.enumUtil.swipeDirection.DIRECTION_UP) {
+    }/* else if (e.direction === this.enumUtil.swipeDirection.DIRECTION_UP) {
       // down - previous
       this.sendToPrevious();
     } else if (e.direction === this.enumUtil.swipeDirection.DIRECTION_DOWN) {
       // up - skip
       this.sendToSkip();
-    }
+    }*/
   }
 
   onLoad(): void {
@@ -224,6 +227,29 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  playVideo(): void {
+    this.videoPlayer.nativeElement.play();
+  }
+
+  downloadFile(file: HydrusFile): void {
+    this.fileService.downloadFile(file).subscribe({
+      next: (fileBlob) => {
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        let url = window.URL.createObjectURL(fileBlob);
+        a.href = url;
+        let fileName = file.hash;
+        //filename + file extension from mime
+        a.download = `${fileName}.${file.mime.substring(file.mime.indexOf("\\") + 1)}`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+
+        window.open(url);
+      },
+    });
   }
 
   @HostListener("window:keydown", ["$event"])

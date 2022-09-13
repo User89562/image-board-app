@@ -6,6 +6,7 @@ import { HydrusFileId, HydrusFileIds } from '../entities/adding-files';
 import { FileSearch } from '../entities/file-search';
 import {  HydrusMetadata } from '../entities/hydrus-file';
 import { HydrusKeyVerificationData } from '../entities/login';
+import { Boned } from '../entities/manage-db';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +95,9 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+
+
+
   getFileMetadata(fileIds: number[]): Observable<HydrusMetadata> {
     let searchUrl = this.backendApi + 'get_files/file_metadata';
     let params = encodeURIComponent(JSON.stringify(fileIds));
@@ -123,6 +127,29 @@ export class ApiService {
     public getFileURLFromHash(file_hash: string): string {
       return this.backendApi + 'get_files/file?hash=' + file_hash + '&Hydrus-Client-API-Access-Key=' + this.apiKey;
     }
+
+    public getFileAsBlob(file_hash: string): Observable<Blob> {
+      return this.http.get(
+        this.backendApi + 'get_files/file?hash=' + file_hash,
+        {
+          headers: {"Access-Control-Allow-Origin": "*", "Hydrus-Client-API-Access-Key": `${this.apiKey}`},
+          responseType: 'blob'
+        },
+      );
+    }
+
+
+
+    /******************************************************************** 
+    /*                         MANAGING DATABASE
+    /******************************************************************** */
+  
+    howBoned(): Observable<Boned> {
+    let delUrl = this.backendApi + 'manage_database/mr_bones';
+    return this.http
+      .get<Boned>(delUrl, this.setHttpOptions())
+      .pipe(catchError(this.handleError));
+  }
 
     /********************** MISC **************************************** */
 

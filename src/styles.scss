@@ -3,9 +3,14 @@
 
 body {
   margin: 0;
-  background-color: #4e4d4d;
+  background-color: #121212;
   color: whitesmoke !important;
   text-shadow: 0px 0px 1px black;
+  font-family: "Roboto";
+}
+
+h1 {
+  font-family: "Permanent Marker" !important;
 }
 
 .main-container {
@@ -14,20 +19,20 @@ body {
 
 /*form field sizes*/
 .form-field-xs {
-    width: 320px;
-  }
-  
-  .form-field-gt-xs {
-    width: 520px;
-  }
-  
-  .form-field-gt-md {
-    width: 1015px;
-  }
+  width: 320px;
+}
+
+.form-field-gt-xs {
+  width: 520px;
+}
+
+.form-field-gt-md {
+  width: 1015px;
+}
 
 // used for archive-delete-filter overlay
 .backdrop-class {
-  background: black !important;
+  background: #1f1b24 !important;
 }
 
 // divider for dark mode
@@ -36,5 +41,17 @@ body {
   padding: 8px;
 }
 
+.mat-button,
+.mat-flat-button {
+  color: whitesmoke !important;
+}
 
 
+.continue-checkbox .mat-checkbox-inner-container{
+  height: 20px !important;
+  width: 20px !important;
+}
+.continue-checkbox .mat-checkbox-label{
+  font-size: 20px !important;
+  line-height: 20px !important;
+}

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  app_name: 'Hydrus Web Board',
+  app_name: 'Venus\' Arch - Hydrus Archive/Delete Filter',
 };
 
 /*

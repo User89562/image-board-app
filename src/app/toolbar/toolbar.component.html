@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar-container">
+<mat-toolbar class="toolbar-container" color="primary">
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="65px">
     <a
       mat-list-item
@@ -13,6 +13,18 @@
   </div>
 
   <span class="toolbar-spacer"></span>
+  <div *ngIf="dbStats" fxLayoutAlign="center center" fxLayoutGap="15px" fxLayout="row">
+    <div fxLayoutAlign="center center" fxLayoutGap="5px" matTooltip="Last Updated">
+      <mat-icon>lock_clock</mat-icon> {{lastUpdated | date:'short'}}
+    </div>
+    <div fxLayoutAlign="center center" fxLayoutGap="5px" matTooltip="Inbox">
+      <mat-icon>mail</mat-icon> {{dbStats.boned_stats.num_inbox}}
+    </div>
+    <div fxLayoutAlign="center center" fxLayoutGap="5px" matTooltip="Archive">
+      <mat-icon>archive</mat-icon> {{dbStats.boned_stats.num_archive}}
+    </div>
+
+  </div>
 
   <!--right side buttons-->
   <div fxLayoutGap="35px" fxLayout="row" fxLayoutAlign="center center">

@@ -32,16 +32,11 @@ export class FileService {
         }))
       )
     );
-    /*
-    this.apiService.getFileMetadata(fileIds).subscribe({
-      next: (metadata) => {
-        fileIds.forEach(id => {
-          let f = metadata.metadata.find(m => m.file_id === id) as HydrusFile;
-          f.thumbnail_url = this.apiService.getThumbnailURLFromId(id);
-          files.push(f);
-        });
-      }
-    });
-    return of(files);*/
+  }
+
+  downloadFile(file: HydrusFile): Observable<File> {
+    return this.apiService.getFileAsBlob(file.hash).pipe(
+      map(b => new File([b], file.hash + file.ext))
+    );
   }
 }

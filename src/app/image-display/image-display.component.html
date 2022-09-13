@@ -1,8 +1,14 @@
 <div fxLayoutAlign="center center" class="card-container" *ngIf="hydrusFile">
   <mat-card
     id="image-container"
-    fxLayoutAlign="center center"
+    fxLayoutAlign="start center"
     fxLayout="column"
+    [ngStyle]="{
+      'height.px': heightNum+70,
+      'width.px': widthNum+ 50,
+      'background-size': 'contain'
+
+    }"
   >
     <h3
       class="file-title"
