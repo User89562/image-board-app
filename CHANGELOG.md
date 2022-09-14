@@ -1,3 +1,6 @@
+# v2.5a
+- select-list-filter: replaced middle-mouse click to skip with right-click
+
 # v2.4a
 - changed default volume of videos to 0 (muted)
 - added stats (inbox & archive amounts)

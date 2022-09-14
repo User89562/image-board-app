@@ -1,6 +1,7 @@
 .file-filter-container {
   margin: 8px;
   margin-top: -25px;
+
 }
 
 .color-block {
@@ -18,7 +19,7 @@
 
 #delete-color {
   background-color: transparent;
-  border: 1px solid whitesmoke;
+  border: 1px solid #424242;
 }
 
 .mouse-button-icons {
@@ -64,11 +65,19 @@
 .change-view-button {
   position: relative;
   left: 81%;
-  top: 44px;
+  top: 47px;
   z-index: 1;
-  width: 73px;
+  width: 74px;
   border-top-left-radius: 44px;
   border-bottom-left-radius: 44px;
+  height: 39px;
+}
+
+.scroll-top-button {
+  position: fixed;
+  bottom: 11px;
+  right: 24px;
+  border-radius: 45%;
 }
 
 

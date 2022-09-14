@@ -177,6 +177,10 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     } else {
       this.fileChanges.archive.push(file);
     }
+
+    if (this.fileChanges.skipped.includes(file)){
+      this.fileChanges.skipped.splice(this.fileChanges.skipped.indexOf(file), 1);
+    }
   }
 
   isFileSelected(file: HydrusFile): string {
@@ -185,18 +189,20 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     } else if (this.fileChanges.skipped.includes(file)) {
       return "8px solid  #007ac1";
     }
-    return "8px solid transparent";
+    return "8px solid #424242";
   }
 
   // middle mouse = aux-click - middle mouse = 1, rightclick = 2
   onAuxClick(file: HydrusFile, e: any): void {
     this.currentIndex = this.hydrusFiles.indexOf(file);
-    if (e.button === 1) {
+    if (e.button === 2) {
       if (this.fileChanges.skipped.includes(file)) {
         this.fileChanges.skipped.splice(this.fileChanges.archive.indexOf(file), 1);
-        
       } else {
         this.fileChanges.skipped.push(file);
+      }
+      if (this.fileChanges.archive.includes(file)) {
+        this.fileChanges.archive.splice(this.fileChanges.archive.indexOf(file), 1);
       }
     }     
   }
@@ -349,5 +355,9 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
 
   updateWidth(e: any): void {
     this.localStorageUtil.addToStorage(this.thumbnailHeight, e);
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

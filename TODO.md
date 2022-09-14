@@ -11,3 +11,9 @@
 - TODO: add download button to archive select list & fullscreen
 - TODO: maybe settings for thumbnail size, and starting search values (?)
     - TODO: add ability to change thumbnail size through app (mainly only applies to desktop verison)
+- TODO: add pages
+- TODO: add rating filter (when api is available)
+- TODO: common tags / import tags from hydrus
+- TODO: if file isn't an image or video display filetype instead of a thumbnail (which doesn't exist)
+- TODO: option to see current file's tags
+- TODO: pagniation if amount of grabbed files is passed N (maybe something like 50-100)

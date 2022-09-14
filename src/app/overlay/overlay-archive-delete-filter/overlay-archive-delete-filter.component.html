@@ -11,7 +11,7 @@
       mat-icon-button
       class="play-video-button"
       (click)="playVideo()"
-      *ngIf="!imageType(currentFile.mime)"
+      *ngIf="!imageType(currentFile?.mime)"
     >
       <mat-icon>play_arrow</mat-icon>
     </button>
@@ -19,7 +19,7 @@
 
   <div
     fxLayoutAlign="center center"
-    *ngIf="hydrusFiles && currentFile"
+    *ngIf="currentFile"
     class="custom-swiper-container"
     (swipe)="onSwipe($event)"
     [@cardAnimator]="animationState"

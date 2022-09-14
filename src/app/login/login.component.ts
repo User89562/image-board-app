@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loggingIn = false;
   loginUtil = LoginUtil;
   title = 'Venus\' Arch';
-  subtitle = 'Hydrus web archive/delete filter';
+  subtitle = 'A web archive/delete filter for Hydrus';
   logo: string;
   loginForm = this.fb.group({
     apiUrl: ["", Validators.required],

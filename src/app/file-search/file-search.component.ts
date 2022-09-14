@@ -107,9 +107,12 @@ export class FileSearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   tagsChanged(tags: string[]) {
-    this.searchTags = tags;
-    this.hydrusFiles = [];
-    this.searchFiles();
+    if (this.startSearch) {
+      this.searchTags = tags;
+      this.hydrusFiles = [];
+      this.searchFiles();
+    }
+
   }
 
   sortTypeChanged(type: number) {

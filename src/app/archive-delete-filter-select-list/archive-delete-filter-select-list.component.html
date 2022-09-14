@@ -55,7 +55,7 @@
         >
           <p class="color-block" id="skip-color"></p>
           <img
-            src="assets/custom-icons/middle-click.png"
+            src="assets/custom-icons/right-click.png"
             class="mouse-button-icons"
           />
           <p>Skip</p>
@@ -71,7 +71,7 @@
             src="assets/custom-icons/no-click.png"
             class="mouse-button-icons"
           />
-          <p>Delete</p>
+          <p>Delete (not selected)</p>
         </div>
       </div>
     </div>
@@ -96,6 +96,7 @@
         <div
           (click)="selectFile(file, $event)"
           (auxclick)="onAuxClick(file, $event)"
+          (contextmenu)="$event.preventDefault()"
           [ngStyle]="{ border: isFileSelected(file) }"
         >
           <app-image-display
@@ -120,6 +121,11 @@
       <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
         >Continue Filtering</mat-checkbox
       >
+    </div>
+    <div fxLayoutAlign="center center">
+      <button mat-flat-button class="scroll-top-button" fxLayoutAlign="center center" (click)="scrollToTop()">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
     </div>
   </div>
   <div *ngIf="loading"></div>

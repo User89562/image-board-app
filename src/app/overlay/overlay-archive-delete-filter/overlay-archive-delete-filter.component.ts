@@ -222,8 +222,8 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
     this.animationState = "";
   }
 
-  imageType(mime: string): boolean {
-    if (mime.includes("video")) {
+  imageType(mime?: string): boolean {
+    if (mime?.includes("video")) {
       return false;
     }
     return true;
