@@ -1,4 +1,4 @@
-# Image Board App
+# Venus' Arch
 
 ## [Packages List](packages.md)
 ## [Changelog](CHANGELOG.md)
