@@ -16,4 +16,4 @@
 - TODO: common tags / import tags from hydrus
 - TODO: if file isn't an image or video display filetype instead of a thumbnail (which doesn't exist)
 - TODO: option to see current file's tags
-- TODO: pagniation if amount of grabbed files is passed N (maybe something like 50-100)
+- ~~TODO: pagniation if amount of grabbed files is passed N (maybe something like 50-100)~~ (changed to virtual scrolling)

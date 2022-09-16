@@ -1,0 +1,23 @@
+<cdk-virtual-scroll-viewport
+  [itemSize]="itemHeight"
+  class="virtual-container"
+  [minBufferPx]="itemHeight*2"
+  [maxBufferPx]="itemHeight * 4"
+>
+  <div
+    *cdkVirtualFor="let items of itemSet; templateCacheSize: 0"
+    class="virtual-row-items"
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+    fxLayoutGap="15px"
+  >
+    <div *ngFor="let item of items" class="files-container">
+      <app-image-display
+        [hydrusFile]="item"
+        [widthNum]="itemWidth"
+        [heightNum]="itemHeight"
+        [thumbnail]="true"
+      ></app-image-display>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>

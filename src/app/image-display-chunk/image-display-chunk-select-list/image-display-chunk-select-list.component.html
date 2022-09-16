@@ -1,0 +1,62 @@
+<cdk-virtual-scroll-viewport
+  class="virtual-container"
+  appendOnly
+  [itemSize]="itemHeight"
+  [minBufferPx]="itemHeight * 3"
+  [maxBufferPx]="itemHeight * 5"
+  [ngStyle]="{
+    'height.px': h
+  }"
+>
+  <div
+    *cdkVirtualFor="let items of itemSet; templateCacheSize: 0"
+    class="virtual-row-items"
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+    fxLayoutGap="15px"
+  >
+    <div *ngFor="let item of items" class="files-container">
+      <button
+        mat-flat-button
+        (click)="fullscreenView(item)"
+        color="accent"
+        class="change-view-button"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <mat-icon>zoom_in</mat-icon>
+        <span *ngIf="isPlayable(item)"> / </span>
+        <mat-icon *ngIf="isPlayable(item)">play_arrow</mat-icon>
+      </button>
+
+      <div
+        (click)="selectFile(item, $event)"
+        (auxclick)="onAuxClick(item, $event)"
+        (contextmenu)="$event.preventDefault()"
+        [ngStyle]="{ border: isFileSelected(item) }"
+        class="image-display-container"
+      >
+        <app-image-display
+          [hydrusFile]="item"
+          [widthNum]="itemWidth"
+          [heightNum]="itemHeight"
+          [thumbnail]="true"
+        ></app-image-display>
+      </div>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>
+<mat-divider id="dark-mode-divider" class="view-divider"></mat-divider>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25px">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="submitFiles()"
+    class="submit-button"
+  >
+    Submit
+  </button>
+  <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
+    >Continue Filtering</mat-checkbox
+  >
+</div>

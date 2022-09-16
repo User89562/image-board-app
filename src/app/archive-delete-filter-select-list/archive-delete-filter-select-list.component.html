@@ -1,4 +1,9 @@
-<div fxLayout="column" class="main-container">
+<div
+  fxLayout="column"
+  class="main-container"
+  cdkVirtualScrollingElement
+  id="scrolling-element-container"
+>
   <div *ngIf="loading" fxLayout="column" class="loading-container">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     <p matLine *ngIf="processing" class="processing-text">
@@ -75,58 +80,14 @@
         </div>
       </div>
     </div>
-    <div fxLayout="row wrap" fxLayoutAlign="center center">
-      <div
-        *ngFor="let file of hydrusFiles"
-        class="file-filter-container"
-        fxLayout="column"
-      >
-        <button
-          mat-flat-button
-          (click)="fullscreenView(file)"
-          color="accent"
-          class="change-view-button"
-          fxLayout="column"
-          fxLayoutAlign="center center"
-        >
-          <mat-icon>zoom_in</mat-icon>
-          <span *ngIf="isPlayable(file)"> / </span>
-          <mat-icon *ngIf="isPlayable(file)">play_arrow</mat-icon>
-        </button>
-        <div
-          (click)="selectFile(file, $event)"
-          (auxclick)="onAuxClick(file, $event)"
-          (contextmenu)="$event.preventDefault()"
-          [ngStyle]="{ border: isFileSelected(file) }"
-        >
-          <app-image-display
-            [hydrusFile]="file"
-            [heightNum]="thumbnailHeight"
-            [widthNum]="thumbnailWidth"
-            [thumbnail]="false"
-          ></app-image-display>
-        </div>
-      </div>
+    <div>
+      <app-image-display-chunk-select-list
+        [hydrusFiles]="hydrusFiles"
+        [itemHeight]="thumbnailHeight"
+        [itemWidth]="thumbnailWidth"
+        (filesChanged)="updateFileStatuses($event)"
+      ></app-image-display-chunk-select-list>
     </div>
-    <mat-divider id="dark-mode-divider"></mat-divider>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25px">
-      <button
-        mat-flat-button
-        color="primary"
-        (click)="submitFiles()"
-        class="submit-button"
-      >
-        Submit
-      </button>
-      <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
-        >Continue Filtering</mat-checkbox
-      >
-    </div>
-    <div fxLayoutAlign="center center">
-      <button mat-flat-button class="scroll-top-button" fxLayoutAlign="center center" (click)="scrollToTop()">
-        <mat-icon>arrow_upward</mat-icon>
-      </button>
-    </div>
+
   </div>
-  <div *ngIf="loading"></div>
 </div>

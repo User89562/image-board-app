@@ -56,6 +56,10 @@
         Processing Filter...
       </p>
     </div>
+    <div *ngIf="hydrusFiles && !loading" class="image-chunk-container">
+      <app-image-display-chunk [hydrusFiles]="hydrusFiles"></app-image-display-chunk>
+    </div>
+    <!--
     <div
       *ngIf="hydrusFiles && !loading"
       fxLayout="row wrap"
@@ -72,6 +76,6 @@
           <mat-icon>download</mat-icon>
         </button>
       </div>
-    </div>
+    </div>-->
   </div>
 </div>

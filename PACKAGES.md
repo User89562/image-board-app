@@ -6,3 +6,4 @@
     - [Responsive API](https://github.com/angular/flex-layout/wiki/Responsive-API)
 - [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages) (UPDATED SEPT 1, 2022)
   - 'ng deploy' to build and deploy to github pages
+- [ngx-virtual-scroll](https://github.com/lVlyke/lithium-ngx-virtual-scroll) (UPDATED SEP 15, 2022)

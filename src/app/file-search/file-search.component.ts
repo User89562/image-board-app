@@ -37,6 +37,7 @@ export class FileSearchComponent implements OnInit, OnDestroy {
   recentlyChangedFileIds: number[];
   continueFilter: boolean;
   startSearch = true;
+  chunkSize: number;
 
   constructor(
     titleService: Title,
@@ -48,19 +49,20 @@ export class FileSearchComponent implements OnInit, OnDestroy {
     overlay: Overlay,
     private injectorService: InjectorService
   ) {
+    this.chunkSize = 3;
     this.sortType = 2; //import time
     this.sortDir = true;
     this.subscriptions = [];
     this.hydrusFiles = [];
     this.recentlyChangedFileIds = [];
     this.continueFilter = false;
-    this.initalTags = ["system:limit = 35", "system:inbox"];
+    this.initalTags = ["system:limit = 15", "system:inbox"];
     this.searchTags = this.initalTags;
     this.overlayUtil = new OverlayUtil(viewContainerRef, overlay);
     this.filterStyle = "select-list";
     titleService.setTitle("File Search | " + environment.app_name);
 
-    //check if mobile view
+    //TODO: calculate chunk size based on size of thumbnail width - maybe change to width breakpoints instead of 'handset'
     this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.Tablet])
       .subscribe({
@@ -69,6 +71,16 @@ export class FileSearchComponent implements OnInit, OnDestroy {
             this.mobileView = true;
             this.filterStyle = "full-screen";
           }
+          /*
+          const breakpoints = r.breakpoints;
+
+          if (breakpoints[Breakpoints.Tablet]) {
+            this.mobileView = true;
+            this.filterStyle = "full-screen";
+          } else if (breakpoints[Breakpoints.Handset]) {
+            this.mobileView = true;
+            this.filterStyle = "full-screen";
+          } */
         },
       });
 
@@ -112,7 +124,6 @@ export class FileSearchComponent implements OnInit, OnDestroy {
       this.hydrusFiles = [];
       this.searchFiles();
     }
-
   }
 
   sortTypeChanged(type: number) {

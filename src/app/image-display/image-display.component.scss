@@ -2,6 +2,7 @@
   object-fit: contain;
   width: 95%;
   height: 95%;
+  animation: fadeIn ease 500ms;
 }
 .file-title {
   white-space: nowrap;
@@ -27,5 +28,6 @@
 .video-play-button {
   opacity: 0.75;
 }
+
 
 

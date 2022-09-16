@@ -79,7 +79,6 @@ export class OverlayArchiveDeleteFilterMobileComponent implements OnInit {
   }
 
   onLoad(): void {
-    console.log('df');
     this.loading = false;
   }
 

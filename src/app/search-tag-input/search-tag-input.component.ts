@@ -1,9 +1,7 @@
-import { EnumUtil } from './../utilities/enum-util';
-import { Title } from '@angular/platform-browser';
 import { FileService } from './../services/file.service';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {  MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { TagUtils } from '../utilities/tag-utils';

@@ -1,5 +1,7 @@
 # v2.5a
-- select-list-filter: replaced middle-mouse click to skip with right-click
+- select-list-filter: replaced middle-mouse click with right-click to skip filtering the selected file
+- fixed a bug when reaching the end of the filter from fullscreen mode (after opening it from select-list) not submitting any file changes
+- added virtual scrolling to file-search component & archive-filter-select-list
 
 # v2.4a
 - changed default volume of videos to 0 (muted)

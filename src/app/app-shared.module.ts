@@ -1,3 +1,5 @@
+import { ImageDisplayChunkSelectListComponent } from './image-display-chunk/image-display-chunk-select-list/image-display-chunk-select-list.component';
+import { ImageDisplayChunkComponent } from './image-display-chunk/image-display-chunk.component';
 import { DialogMobileVideoPlayerComponent } from './dialogs/dialog-mobile-video-player/dialog-mobile-video-player.component';
 import { OverlayArchiveDeleteFilterMobileComponent } from './overlay/overlay-archive-delete-filter-mobile/overlay-archive-delete-filter-mobile.component';
 import { DialogFilterConfirmationComponent } from './dialogs/dialog-filter-confirmation/dialog-filter-confirmation.component';
@@ -29,6 +31,8 @@ import { OverlayComponent } from './overlay/overlay.component';
     OverlayArchiveDeleteFilterComponent,
     OverlayArchiveDeleteFilterMobileComponent,
     ImageDisplayComponent,
+    ImageDisplayChunkComponent,
+    
     
   ],
   imports: [
@@ -53,6 +57,7 @@ import { OverlayComponent } from './overlay/overlay.component';
     FormsModule,
     ReactiveFormsModule,
     ImageDisplayComponent,
+    ImageDisplayChunkComponent,
   ],
   providers: [{provide: OverlayContainer, useClass: FullscreenOverlayContainer}, Title]
 })

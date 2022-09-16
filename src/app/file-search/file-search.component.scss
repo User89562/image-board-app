@@ -16,12 +16,12 @@
 
 .files-container {
   margin: 10px;
+  width: 265px;
 }
 
-.image-container {
-  width: 500px;
-  height: auto;
-}
+
+
+
 
 .filter-button {
   width: 250px;
@@ -70,4 +70,8 @@
 
 .mat-button-toggle-checked {
   background-color:#087f23;
+}
+
+.image-chunk-container {
+  height: calc(100vh - 230px);
 }

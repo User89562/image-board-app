@@ -190,25 +190,35 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
     );
 
     dialogConfirmRef.afterClosed().subscribe((confirmation) => {
-      if (confirmation === "continue") {
-        this.injectorService.closeFullscreenOverlay({
-          files: this.fileChanges,
-          makeChanges: true,
-          continueFilter: true,
-        });
-      } else if (confirmation === "commit") {
-        this.injectorService.closeFullscreenOverlay({
-          files: this.fileChanges,
-          makeChanges: true,
-          continueFilter: false,
-        });
+      if (this.dialogOnClose) {
+        if (confirmation === "continue") {
+          this.injectorService.closeFullscreenOverlay({
+            files: this.fileChanges,
+            makeChanges: true,
+            continueFilter: true,
+          });
+        } else if (confirmation === "commit") {
+          this.injectorService.closeFullscreenOverlay({
+            files: this.fileChanges,
+            makeChanges: true,
+            continueFilter: false,
+          });
+        } else {
+          this.injectorService.closeFullscreenOverlay({
+            files: this.fileChanges,
+            makeChanges: false,
+            continueFilter: false,
+          });
+        }
+
       } else {
         this.injectorService.closeFullscreenOverlay({
           files: this.fileChanges,
-          makeChanges: false,
+          makeChanges: true,
           continueFilter: false,
         });
       }
+
     });
   }
 
@@ -252,6 +262,7 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
     });
   }
 
+  /* interferes with video controls
   @HostListener("window:keydown", ["$event"])
   handleKeyDown(event: KeyboardEvent) {
     event.preventDefault();
@@ -266,5 +277,5 @@ export class OverlayArchiveDeleteFilterComponent implements OnInit {
     } else if (event.key === "Escape") {
       this.closeFullscreen();
     }
-  }
+  }*/
 }

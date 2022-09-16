@@ -1,5 +1,13 @@
 import { UserFiles } from "src/app/entities/archive-delete-filter";
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewContainerRef } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewContainerRef,
+} from "@angular/core";
 import { HydrusFile } from "src/app/entities/hydrus-file";
 import { Title } from "@angular/platform-browser";
 import { Router, NavigationEnd } from "@angular/router";
@@ -18,9 +26,12 @@ import { LocalStorageUtil } from "../utilities/local-storage-util";
   templateUrl: "./archive-delete-filter-select-list.component.html",
   styleUrls: ["./archive-delete-filter-select-list.component.scss"],
 })
-export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy {
+
+//TODO: create image-display-chunk-select-list -> move all components related to it there
+export class ArchiveDeleteFilterSelectListComponent
+  implements OnInit, OnDestroy
+{
   hydrusFiles: HydrusFile[];
-  fileChanges: UserFiles;
   searchTags!: string[];
   sortType!: number;
   sortDir: boolean = true;
@@ -28,7 +39,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
   subscriptions: Subscription[];
   loading = true;
   enumUtil = EnumUtil;
-  mobileCurrentImage!: HydrusFile;
   currentIndex: number;
   overlayUtil: OverlayUtil;
   continueFilter: boolean;
@@ -37,7 +47,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
   thumbnailHeight: number;
   thumbnailWidth: number;
   continue: boolean;
-  
 
   constructor(
     private router: Router,
@@ -46,11 +55,10 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     private fileService: FileService,
     private injectorService: InjectorService,
     viewContainerRef: ViewContainerRef,
-    overlay: Overlay,
+    overlay: Overlay
   ) {
     titleService.setTitle("Archive/Delete | " + environment.app_name);
     this.hydrusFiles = [];
-    this.fileChanges = new UserFiles();
     this.subscriptions = [];
     this.currentIndex = 0;
     this.overlayUtil = new OverlayUtil(viewContainerRef, overlay);
@@ -64,10 +72,14 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
         this.router.getCurrentNavigation()?.extras.state?.["files"];
       this.searchTags =
         this.router.getCurrentNavigation()?.extras.state?.["tags"];
-      if (this.router.getCurrentNavigation()?.extras.state?.["sortDir"] === "false" ) {
+      if (
+        this.router.getCurrentNavigation()?.extras.state?.["sortDir"] ===
+        "false"
+      ) {
         this.sortDir = false;
       }
-      this.sortType = this.router.getCurrentNavigation()?.extras.state?.["sortType"];
+      this.sortType =
+        this.router.getCurrentNavigation()?.extras.state?.["sortType"];
 
       this.setSearchParams();
       this.saveSearchParams();
@@ -95,18 +107,16 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
             if (this.searchParams.get("sortDir") === "false") {
               this.sortDir = false;
             }
-          } 
+          }
         }
       })
     );
-
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
-
   }
 
   ngOnInit(): void {
@@ -115,11 +125,14 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     }
     let dim = this.localStorageUtil.retrieveThumbnailDimensions();
     if (dim) {
-      let parsed =JSON.parse(dim);
-      this.thumbnailHeight =parsed.height;
+      let parsed = JSON.parse(dim);
+      this.thumbnailHeight = parsed.height;
       this.thumbnailWidth = parsed.width;
     } else {
-      this.localStorageUtil.addToStorage(this.thumbnailHeight, this.thumbnailWidth);
+      this.localStorageUtil.addToStorage(
+        this.thumbnailHeight,
+        this.thumbnailWidth
+      );
     }
   }
 
@@ -142,7 +155,6 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
                 .subscribe({
                   next: (files) => {
                     this.hydrusFiles = files;
-                    this.mobileCurrentImage = this.hydrusFiles[0];
                     this.loading = false;
                   },
                 });
@@ -152,9 +164,8 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
       this.setSearchParams();
       this.saveSearchParams();
     } else {
-      this.router.navigate(['/file-search']);
+      this.router.navigate(["/file-search"]);
     }
-
   }
 
   setSearchParams(): void {
@@ -170,142 +181,13 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     history.pushState(null, "", newRelativePathQuery);
   }
 
-  selectFile(file:HydrusFile, e: any): void {
-    this.currentIndex = this.hydrusFiles.indexOf(file);
-    if (this.fileChanges.archive.includes(file)) {
-      this.fileChanges.archive.splice(this.fileChanges.archive.indexOf(file), 1);
-    } else {
-      this.fileChanges.archive.push(file);
-    }
-
-    if (this.fileChanges.skipped.includes(file)){
-      this.fileChanges.skipped.splice(this.fileChanges.skipped.indexOf(file), 1);
-    }
-  }
-
-  isFileSelected(file: HydrusFile): string {
-    if (this.fileChanges.archive.includes(file)) {
-      return "8px solid #00e676";
-    } else if (this.fileChanges.skipped.includes(file)) {
-      return "8px solid  #007ac1";
-    }
-    return "8px solid #424242";
-  }
-
-  // middle mouse = aux-click - middle mouse = 1, rightclick = 2
-  onAuxClick(file: HydrusFile, e: any): void {
-    this.currentIndex = this.hydrusFiles.indexOf(file);
-    if (e.button === 2) {
-      if (this.fileChanges.skipped.includes(file)) {
-        this.fileChanges.skipped.splice(this.fileChanges.archive.indexOf(file), 1);
-      } else {
-        this.fileChanges.skipped.push(file);
-      }
-      if (this.fileChanges.archive.includes(file)) {
-        this.fileChanges.archive.splice(this.fileChanges.archive.indexOf(file), 1);
-      }
-    }     
-  }
-
-  fullscreenView(file: HydrusFile): void {
-    this.overlayUtil.createFullscreenOverlay();
-    this.setupFileChanges();
-
-    //send files to overlay
-    setTimeout(
-      () =>
-        this.injectorService.announceFullscreenOverlay({
-          files: this.hydrusFiles,
-          currentIndex: this.hydrusFiles.indexOf(file),
-          currentFileChanges: this.fileChanges,
-          dialogOnClose: false
-        }),
-      300
-    );
-
-    //retrieve files from overlay and whether to commit them
-    this.subscriptions.push(
-      this.injectorService.sendFilesSourceFound$.subscribe((msg) => {
-        if (!msg.continueFilter) {
-          this.overlayUtil.closeOverlay();
-          this.continueFilter = false;
-        } else {
-          this.continueFilter = true;
-        }
-
-        //check to see if all files have been filtered and compare to 'hydrusFiles'
-        let finishedFiltering = msg.files.archive.length + msg.files.delete.length + msg.files.skipped.length;
-
-        if (msg.makeChanges && finishedFiltering === this.hydrusFiles.length) {
-          this.updateFileStatuses(msg.files);
-        } else {
-          this.fileChanges = msg.files;
-        }
-      })
-    );
-  }
-
-  determineInboxStatus(file: HydrusFile): string {
-    if (this.fileChanges.archive.includes(file)){
-      return 'archive'
-    }
-    if (file.is_inbox) {
-      return 'mail';
-    }
-    return 'archive';
-  }
-
-  determineDeleteStatus(file: HydrusFile): string {
-    if (this.fileChanges.delete.includes(file) || file.is_trashed){
-      return 'delete'
-    }
-    return '';
-  }
-
-  //determine files to be trashed
-  setupFileChanges(): void {
-    this.fileChanges.delete = [];
-    if (this.fileChanges.archive.length > 0 && this.fileChanges.skipped.length > 0) {
-      //remove archive files from all files
-      this.fileChanges.delete = this.hydrusFiles.filter(
-        (files) =>
-          !this.fileChanges.archive.map((s) => s.file_id).includes(files.file_id)
-      ); 
-      // remove skipped files from first filter result
-      this.fileChanges.delete = this.fileChanges.delete.filter(
-        (files) =>
-          !this.fileChanges.skipped.map((s) => s.file_id).includes(files.file_id)
-      ); 
-    } else if (this.fileChanges.archive.length > 0) {
-      this.fileChanges.delete = this.hydrusFiles.filter(
-        (files) =>
-          !this.fileChanges.archive.map((s) => s.file_id).includes(files.file_id)
-      );
-    } else if (this.fileChanges.skipped.length > 0) {
-      this.fileChanges.delete = this.hydrusFiles.filter(
-        (files) =>
-          !this.fileChanges.skipped.map((s) => s.file_id).includes(files.file_id)
-      );
-    } else {
-      this.fileChanges.delete = this.hydrusFiles;
-    }
-
-  //  this.updateFileStatuses(this.fileChanges);
-  }
-
-  submitFiles(): void {
-    this.setupFileChanges();
-    this.updateFileStatuses(this.fileChanges);
-  }
-
-
   updateFileStatuses(userFiles: UserFiles): void {
     this.processing = true;
     this.loading = true;
     let archiveIds = userFiles.archive.map((a) => a.file_id);
     let deleteIds = userFiles.delete.map((a) => a.file_id);
 
-   // this.recentlyChangedFileIds = archiveIds.concat(deleteIds);
+    // this.recentlyChangedFileIds = archiveIds.concat(deleteIds);
 
     if (archiveIds.length > 0 && deleteIds.length > 0) {
       this.subscriptions.push(
@@ -342,22 +224,21 @@ export class ArchiveDeleteFilterSelectListComponent implements OnInit, OnDestroy
     }
   }
 
-  isPlayable(file: HydrusFile): boolean {
-    if (file.mime.includes('video') || file.mime.includes('gif')){
-      return true;
-    }
-    return false;
+  submitFiles(): void {
+    //
   }
 
   updateHeight(e: any): void {
     this.localStorageUtil.addToStorage(e, this.thumbnailWidth);
+    //emit to child
   }
 
   updateWidth(e: any): void {
     this.localStorageUtil.addToStorage(this.thumbnailHeight, e);
+    //emit to child
   }
 
   scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }

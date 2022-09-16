@@ -1,0 +1,43 @@
+.file-filter-container {
+  margin: 8px;
+  margin-top: -25px;
+}
+
+.change-view-button {
+  position: relative;
+  left: 81%;
+  top: 47px;
+  z-index: 1;
+  width: 74px;
+  border-top-left-radius: 44px;
+  border-bottom-left-radius: 44px;
+  height: 39px;
+}
+
+.image-display-container {
+  cursor: pointer;
+}
+
+.submit-button {
+  width: 185px;
+  color: whitesmoke;
+  text-shadow: 0px 0px 1px black;
+}
+
+.virtual-container {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.virtual-row-items {
+  margin: 10px;
+}
+
+.files-container {
+  margin: 10px;
+}
+
+.view-divider {
+  margin-top: 21px !important;
+}

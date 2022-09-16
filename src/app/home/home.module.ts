@@ -8,6 +8,7 @@ import { HomeComponent } from './home.component';
 import { FileSearchComponent } from '../file-search/file-search.component';
 import { SearchTagInputComponent } from '../search-tag-input/search-tag-input.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { ImageDisplayChunkSelectListComponent } from '../image-display-chunk/image-display-chunk-select-list/image-display-chunk-select-list.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
     FileSearchComponent,
     SearchTagInputComponent,
     ToolbarComponent,
+    ImageDisplayChunkSelectListComponent,
     
     ArchiveDeleteFilterSelectListComponent,
   ],
